@@ -12,15 +12,16 @@
  */
 
 // no direct access
-defined( "_JEXEC" ) or die( "Restricted access" );
+defined('_JEXEC') or die;
 
 // Include the syndicate functions only once
-require_once (dirname(__FILE__).DS.'helper.php');
+require_once dirname(__FILE__).'/helper.php';
 
 $doc = JFactory::getDocument();
 
-$style = JURI::base() . "modules/mod_itpshare/style.css";
-$doc->addStyleSheet($style);
+if($params->get("loadCss")) {
+    $doc->addStyleSheet("modules/mod_itpshare/style.css");
+}
 
 $url    = JURI::getInstance();
 $url    = $url->toString();

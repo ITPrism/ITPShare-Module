@@ -12,7 +12,7 @@
  */
 
 // no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 class ItpShareHelper{
     
@@ -40,124 +40,271 @@ class ItpShareHelper{
         
         $html = "";
         if($params->get("twitterButton")) {
-            $html = '
-            <div class="itp-share-mod-tw">
-            <a href="http://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-count="' . $params->get("twitterCounter") . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $params->get("twitterLanguage") . '">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-            </div>
+            
+             $html = '
+             	<div class="itp-share-tw">
+                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $params->get("twitterLanguage") . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
+                	<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            	</div>
             ';
         }
-        
+         
         return $html;
     }
     
     public static function getGooglePlusOne($params, $url, $title){
-        $type = "";
         $language = "";
-        if($params->get("plusType")) {
-            $type = 'size="' . $params->get("plusType") . '"';
-        }
         
         if($params->get("plusLocale")) {
-            $language = " {lang: '" . $params->get("plusLocale") . "'}";
+            $language = " {lang: '" . $params->get("plusLocale") . "'};";
         }
-            
+        
         $html = "";
         if($params->get("plusButton")) {
-            $html = '
-            <div class="itp-share-mod-gone">
-            <!-- Place this tag in your head or just before your close body tag -->
-            <script type="text/javascript" src="http://apis.google.com/js/plusone.js">' . $language . '</script>
-            <!-- Place this tag where you want the +1 button to render -->
-            <g:plusone ' . $type . ' href="' . $url . '"></g:plusone>
-            </div>
-            ';
+            $html .= '<div class="itp-share-gone">';
+            
+            switch($params->get("plusRenderer")) {
+                
+                case 1:
+                    $html .= self::genGooglePlus($params, $url, $language);
+                    break;
+                    
+                default:
+                    $html .= self::genGooglePlusHTML5($params, $url, $language);
+                    break;
+            }
+            
+          
+            $html .= '</div>';
         }
         
         return $html;
     }
     
-    public static function getFacebookLike($params, $url, $title){
+    /**
+     * 
+     * Render the Google plus one in standart syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    public static function genGooglePlus($params, $url, $language) {
         
-        if($params->get("fbDynamicLocale", 0)) {
-            $fbLocale = JFactory::getLanguage();
-            $fbLocale = $fbLocale->getTag();
-            $fbLocale = str_replace("-","_",$fbLocale);
-        } else {
-            $fbLocale = $params->get("fbLocale", "en_US");
+        $annotation = "";
+        if($params->get("plusAnnotation")) {
+            $annotation = ' annotation="' . $params->get("plusAnnotation") . '"';
         }
+        
+        $html = '<g:plusone size="' . $params->get("plusType") . '" ' . $annotation . ' href="' . $url . '"></g:plusone>';
+
+        
+        // Load the JavaScript asynchroning
+		if($params->get("loadGooglePlusJsLib")) {
+  
+$html .= '<script type="text/javascript">';
+if($language) {
+   $html .= ' window.___gcfg = '.$language;
+}
+
+$html .= '
+  (function() {
+    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+    po.src = "https://apis.google.com/js/plusone.js";
+    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>';
+				}
+				
+        return $html;
+    }
+    
+    /**
+     * 
+     * Render the Google plus one in HTML5 syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    public static function genGooglePlusHTML5($params, $url, $language) {
+        
+        $annotation = "";
+        if($params->get("plusAnnotation")) {
+            $annotation = ' data-annotation="' . $params->get("plusAnnotation") . '"';
+        }
+        
+        $html = '<div class="g-plusone" data-size="' . $params->get("plusType") . '" ' . $annotation . ' data-href="' . $url . '"></div>';
+
+        // Load the JavaScript asynchroning
+		if($params->get("loadGooglePlusJsLib")) {
+      
+            $html .= '<script type="text/javascript">';
+            if($language) {
+               $html .= ' window.___gcfg = '.$language;
+            }
+            
+            $html .= '
+              (function() {
+                var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+                po.src = "https://apis.google.com/js/plusone.js";
+                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>';
+		}
+    				
+        return $html;
+    }
+    
+    
+    public static function getFacebookLike($params, $url, $title){
         
         $html = "";
         if($params->get("facebookLikeButton")) {
             
+            if($params->get("fbDynamicLocale", 0)) {
+                $fbLocale = JFactory::getLanguage();
+                $fbLocale = $fbLocale->getTag();
+                $fbLocale = str_replace("-","_",$fbLocale);
+            } else {
+                $fbLocale = $params->get("fbLocale", "en_US");
+            }
+            
             $faces = (!$params->get("facebookLikeFaces")) ? "false" : "true";
             
-            $layout = $params->get("facebookLikeType","button_count");
+            $layout = $params->get("facebookLikeType", "button_count");
             if(strcmp("box_count", $layout)==0){
                 $height = "80";
             } else {
                 $height = "25";
             }
             
-            if(!$params->get("facebookLikeRenderer")){ // iframe
-                $html = '
-                <div class="itp-share-mod-fbl">
-                <iframe src="http://www.facebook.com/plugins/like.php?';
+            $html = '<div class="itp-share-fbl">';
+            
+            switch($params->get("facebookLikeRenderer")) {
                 
-                if($params->get("facebookLikeAppId")) {
-                    $html .= 'app_id=' . $params->get("facebookLikeAppId"). '&amp;';
-                }
-                
-                $html .= '
-                href=' . rawurlencode($url) . '&amp;
-                send=' . $params->get("facebookLikeSend",0). '&amp;
-                locale=' . $fbLocale . '&amp;
-                layout=' . $layout . '&amp;
-                show_faces=' . $faces . '&amp;
-                width=' . $params->get("facebookLikeWidth","450") . '&amp;
-                action=' . $params->get("facebookLikeAction",'like') . '&amp;
-                colorscheme=' . $params->get("facebookLikeColor",'light') . '&amp;
-                height='.$height;
-                if($params->get("facebookLikeFont")){
-                    $html .= "&amp;font=" . $params->get("facebookLikeFont");
-                }
-                $html .= '
-                " scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>
-                </div>
-                ';
-            } else {//XFBML
-                $html = '<div class="itp-share-mod-fbl">';
-                
-                if($params->get("facebookRootDiv",1)) {
-                    $html .= '<div id="fb-root"></div>';
-                }
-                
-               if($params->get("facebookLoadJsLib", 1)) {
-                    $html .= '<script src="http://connect.facebook.net/' . $fbLocale . '/all.js#';
-                    if($params->get("facebookLikeAppId")){
-                        $html .= 'appId=' . $params->get("facebookLikeAppId"). '&amp;'; 
-                    }
-                    $html .= 'xfbml=1"></script>';
-                }
-                
-                $html .= '
-                <fb:like href="' . $url . '" 
-                layout="' . $layout . '" 
-                show_faces="' . $faces . '" 
-                width="' . $params->get("facebookLikeWidth","450") . '" 
-                colorscheme="' . $params->get("facebookLikeColor","light") . '"
-                send="' . $params->get("facebookLikeSend",0). '" 
-                action="' . $params->get("facebookLikeAction",'like') . '" ';
-                
-                if($params->get("facebookLikeFont")){
-                    $html .= 'font="' . $params->get("facebookLikeFont") . '"';
-                }
-                $html .= '></fb:like>
-                </div>
-                ';
+                case 0: // iframe
+                    $html .= self::genFacebookLikeIframe($params, $url, $layout, $faces, $height, $fbLocale);
+                break;
+                    
+                case 1: // XFBML
+                    $html .= self::genFacebookLikeXfbml($params, $url, $layout, $faces, $height, $fbLocale);
+                break;
+             
+                default: // HTML5
+                   $html .= self::genFacebookLikeHtml5($params, $url, $layout, $faces, $height, $fbLocale);
+                break;
             }
+            
+            $html .="</div>";
         }
         
         return $html;
+    }
+    
+    public static function genFacebookLikeIframe($params, $url, $layout, $faces, $height, $fbLocale) {
+        
+        $html = '
+            <div class="itp-share-fbl">
+            <iframe src="http://www.facebook.com/plugins/like.php?';
+            
+            if($params->get("facebookLikeAppId")) {
+                $html .= 'app_id=' . $params->get("facebookLikeAppId"). '&amp;';
+            }
+            
+            $html .= 'href=' . rawurlencode($url) . '&amp;send=' . $params->get("facebookLikeSend",0). '&amp;locale=' . $fbLocale . '&amp;layout=' . $layout . '&amp;show_faces=' . $faces . '&amp;width=' . $params->get("facebookLikeWidth","450") . '&amp;action=' . $params->get("facebookLikeAction",'like') . '&amp;colorscheme=' . $params->get("facebookLikeColor",'light') . '&amp;height='.$height.'';
+            if($params->get("facebookLikeFont")){
+                $html .= "&amp;font=" . $params->get("facebookLikeFont");
+            }
+            if($params->get("facebookLikeAppId")){
+                $html .= "&amp;appId=" . $params->get("facebookLikeAppId");
+            }
+            $html .= '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>
+            </div>
+        ';
+            
+        return $html;
+    }
+    
+    public static function genFacebookLikeXfbml($params, $url, $layout, $faces, $height, $fbLocale) {
+        
+        $html = "";
+                
+        if($params->get("facebookRootDiv",1)) {
+            $html .= '<div id="fb-root"></div>';
+        }
+        
+       if($params->get("facebookLoadJsLib", 1)) {
+            $html .= '<script type="text/javascript" src="http://connect.facebook.net/' . $fbLocale . '/all.js#xfbml=1';
+            if($params->get("facebookLikeAppId")){
+                $html .= '&amp;appId=' . $params->get("facebookLikeAppId"); 
+            }
+            $html .= '"></script>';
+        }
+        
+        $html .= '
+        <fb:like 
+        href="' . $url . '" 
+        layout="' . $layout . '" 
+        show_faces="' . $faces . '" 
+        width="' . $params->get("facebookLikeWidth","450") . '" 
+        colorscheme="' . $params->get("facebookLikeColor","light") . '"
+        send="' . $params->get("facebookLikeSend",0). '" 
+        action="' . $params->get("facebookLikeAction",'like') . '" ';
+
+        if($params->get("facebookLikeFont")){
+            $html .= 'font="' . $params->get("facebookLikeFont") . '"';
+        }
+        $html .= '></fb:like>
+        ';
+        
+        return $html;
+    }
+    
+    public static function genFacebookLikeHtml5($params, $url, $layout, $faces, $height, $fbLocale) {
+        
+         $html = '';
+                
+        if($params->get("facebookRootDiv",1)) {
+            $html .= '<div id="fb-root"></div>';
+        }
+                
+       if($params->get("facebookLoadJsLib", 1)) {
+                   
+       $html .='
+<script type="text/javascript">(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/' . $fbLocale . '/all.js#xfbml=1';
+               if($params->get("facebookLikeAppId")){
+                    $html .= '&amp;appId=' . $params->get("facebookLikeAppId"); 
+                }
+$html .= '"
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "facebook-jssdk"));</script>
+                   ';
+                }
+        $html .= '
+                <div 
+                class="fb-like" 
+                data-href="' . $url . '" 
+                data-send="' . $params->get("facebookLikeSend",0). '" 
+                data-layout="'.$layout.'" 
+                data-width="' . $params->get("facebookLikeWidth","450") . '" 
+                data-show-faces="' . $faces . '" 
+                data-colorscheme="' . $params->get("facebookLikeColor","light") . '" 
+                data-action="' . $params->get("facebookLikeAction",'like') . '"';
+                
+                
+        if($params->get("facebookLikeFont")){
+            $html .= ' data-font="' . $params->get("facebookLikeFont") . '" ';
+        }
+        
+        $html .= '></div>';
+        
+        return $html;
+        
     }
     
     public static function getDigg($params, $url, $title){
@@ -166,9 +313,11 @@ class ItpShareHelper{
         $html = "";
         if($params->get("diggButton")) {
             
-            $html = '
-            <div class="itp-share-mod-digg">
-            <script type="text/javascript">
+            $html .= '<div class="itp-share-digg">';
+            
+            // Load the JS library
+            if($params->get("loadDiggJsLib")) {
+                $html .= '<script type="text/javascript">
 (function() {
 var s = document.createElement(\'SCRIPT\'), s1 = document.getElementsByTagName(\'SCRIPT\')[0];
 s.type = \'text/javascript\';
@@ -176,13 +325,14 @@ s.async = true;
 s.src = \'http://widgets.digg.com/buttons.js\';
 s1.parentNode.insertBefore(s, s1);
 })();
-</script>
-<a 
+</script>';
+            }
+            
+$html .= '<a 
 class="DiggThisButton '.$params->get("diggType","DiggCompact") . '"
-href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurlencode($title) . '">
-</a>
-            </div>
-            ';
+href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurlencode($title) . '" rev="'.$params->get("diggTopic").'" >
+</a>';
+            $html .= '</div>';
         }
         
         return $html;
@@ -194,8 +344,8 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
         if($params->get("stumbleButton")) {
             
             $html = '
-            <div class="itp-share-mod-su">
-            <script src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&r=' . rawurlencode($url) . '"></script>
+            <div class="itp-share-su">
+            <script type="text/javascript" src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&r=' . rawurlencode($url) . '"></script>
             </div>
             ';
         }
@@ -209,42 +359,23 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
         if($params->get("linkedInButton")) {
             
             $html = '
-            <div class="itp-share-mod-lin">
-            <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-url="' . $url . '" data-counter="' . $params->get("linkedInType",'right'). '"></script>
+            <div class="itp-share-lin">
+            <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="IN/Share" data-url="' . $url . '" data-counter="' . $params->get("linkedInType",'right'). '"></script>
             </div>
             ';
+
         }
         
         return $html;
     }
     
-    public static function getBuzz($params, $url, $title){
-        
-        $html = "";
-        if($params->get("buzzButton")) {
-            
-            $html = '
-            <div class="itp-share-mod-buzz">
-            <a title="Post to Google Buzz" class="google-buzz-button" 
-            href="http://www.google.com/buzz/post" 
-            data-button-style="' . $params->get("buzzType","small-count"). '" 
-            data-url="' . $url . '"
-            data-locale="' . $params->get("buzzLocale", "en") . '"></a>
-<script type="text/javascript" src="http://www.google.com/buzz/api/button.js"></script>
-            </div>
-            ';
-        }
-        
-        return $html;
-    }
-
     public static function getReTweetMeMe($params, $url, $title){
         
         $html = "";
         if($params->get("retweetmeButton")) {
             
             $html = '
-            <div class="itp-share-mod-retweetme">
+            <div class="itp-share-retweetme">
             <script type="text/javascript">
 tweetmeme_url = "' . $url . '";
 tweetmeme_style = "' . $params->get("retweetmeType") . '";
@@ -258,40 +389,152 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
     }
     
     
-    public static function getYahooBuzz($params, $url, $title){
+    public static function getReddit($params, $url, $title){
         
         $html = "";
-        if($params->get("yahooBuzzButton")) {
+        if($params->get("redditButton")) {
             
-            $html = '
-            <div class="itp-share-mod-yahoobuzz">
-            <script type="text/javascript" src="http://d.yimg.com/ds/badge2.js" badgetype="'.$params->get("yahooBuzzType").'">' . $url . '</script>
-            </div>';
+            $html .= '<div class="itp-share-reddit">';
+            $redditType = $params->get("redditType");
+            
+            $jsButtons = array(1,2,3);
+            
+            if(in_array($redditType,$jsButtons) ) {
+                $html .='<script type="text/javascript">
+  reddit_url = "'. $url . '";
+  reddit_title = "'.$title.'";
+  reddit_bgcolor = "'.$params->get("redditBgColor").'";
+  reddit_bordercolor = "'.$params->get("redditBorderColor").'";
+  reddit_newwindow = "'.$params->get("redditNewTab").'";
+</script>';
+            }
+                switch($redditType) {
+                    
+                    case 1:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"></script>';
+                        break;
+
+                    case 2:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button2.js"></script>';
+                        break;
+                    case 3:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button3.js"></script>';
+                        break;
+                    case 4:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>';
+                        break;
+                    case 5:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=1"></script>';
+                        break;
+                    case 6:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=2"></script>';
+                        break;
+                    case 7:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=3"></script>';
+                        break;
+                    case 8:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=4"></script>';
+                        break;
+                    case 9:
+                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5"></script>';
+                        break;
+                    case 10:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit6.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;
+                    case 11:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit1.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 12:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit2.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 13:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit3.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 14:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit4.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 15:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit5.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 16:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit8.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 17:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit9.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 18:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit10.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 19:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit11.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 20:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit12.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 21:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit13.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                    case 22:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit14.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;   
+                                        
+                    default:
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url=' . $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="Submit to reddit" border="0" /> </a>';
+                        break;
+                }
+                
+                $html .='</div>';
+                
         }
         
         return $html;
     }
     
-    public static function getFacebookShareMe($params, $url, $title){
+    public static function getTumblr($params, $url, $title){
             
-            $html = "";
-            if($params->get("facebookShareMeButton")) {
-                
-                $html = '
-                <div class="itp-share-mod-fbsh">
-                <script>var fbShare = {
-    url: "' . $url . '",
-    title: "' . $title . '",
-    size: "' . $params->get("facebookShareMeType","large"). '",
-    badge_text: "' . $params->get("facebookShareMeBadgeText","C0C0C0"). '",
-    badge_color: "' . $params->get("facebookShareMeBadge","CC00FF"). '",
-    google_analytics: "false"
-    }</script>
-    <script src="http://widgets.fbshare.me/files/fbshare.js"></script>
-                </div>
-                ';
+        $html = "";
+        if($params->get("tumblrButton")) {
+            
+            $html .= '<div class="itp-share-tbr">';
+            
+            if($params->get("loadTumblrJsLib")) {
+                $html .= '<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>';
             }
             
-            return $html;
+            switch($params->get("tumblrType")) {
+                
+                case 1:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+
+                case 2:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 3:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 4:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 5:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 6:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+                case 7:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;   
+                                    
+                default:
+                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    break;
+            }
+            
+            $html .='</div>';
         }
+        
+        return $html;
+    }
+    
 }

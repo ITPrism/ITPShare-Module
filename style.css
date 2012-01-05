@@ -1,79 +1,55 @@
 @CHARSET "UTF-8";
-.itp-share-mod{
-    display:block !important;
+.itp-share{
+    display:block !important;        
 }
 
-
-.itp-share-mod-tw{
+.itp-share-tw{
     float:left;
-    margin:5px;
+    margin:10px 5px 0;
 }
 
-.itp-share-mod-fbsh{
+.itp-share-tbr{
     float:left;
-    margin:5px;
+    margin:10px;
 }
 
-.itp-share-mod-fbl{
+.itp-share-fbl{
     float:left;
-    margin:5px;
+    margin:10px;
 }
-.itp-share-mod-digg{
+.itp-share-digg{
     float:left;
     margin-right:15px;
-    margin-top:5px;
+    margin-top:10px;
 }
-.itp-share-mod-su{
+.itp-share-su{
     float:left;
     margin-right:14px;
-    margin-top:6px;
+    margin-top:11px;
 }
-.itp-share-mod-lin{
+.itp-share-lin{
     float:left;
     margin-right:14px;
-    margin-top:5px;
-}
-.itp-share-mod-buzz{
-    float:left;
-    margin-right:14px;
-    margin-top:5px;
+    margin-top:10px;
 }
 
-.itp-share-mod-gone{
+.itp-share-gone{
     float:left;
     margin-left:5px;
     margin-right:10px;
-    margin-top:5px;
+    margin-top:10px;
 }
 
-
-.itp-share-mod-retweetme{
+.itp-share-retweetme{
     float:left;
-    margin-top:5px;
+    margin-top:10px;
 }
 
-.itp-share-mod-yahoobuzz{
+.itp-share-reddit{
     float:left;
-    margin-top:3px;
+    margin-top:10px;
 }
-
-div.itp-share-mod-yahoobuzz span a{
- background-color: white !important;
-}
-
-div.sharemebutton{ padding: 0px 0px 0px 0px; float: right; width: 56px; max-height: 195px; text-align: center;}
-td.sharemebutton{ padding-right: 0px; padding-top: 10px; padding-bottom:0px; margin-bottom:0px; margin-top: 0px; vertical-align:top; }
-td.space_right{padding: 0px 0px 0px 0px;}
-div.sharemebuttont{ padding: 0px 2px 0px 0px; float: right; }
-td.sharemebuttont{ padding-right: 0px; padding-top: 10px; padding-bottom:0px; margin-bottom:0px; margin-top: 0px; vertical-align:top; }
-td.space_right{ padding: 0px 0px 0px 0px;}
-div.sharemebuttonf{ padding: 2px 2px 0px 0px; float: right;}
-td.sharemebuttonf{ padding-right: 2px; padding-top: 10px; padding-bottom:0px; margin-bottom:0px; margin-top: 0px; vertical-align:top;}
-.fb_share_large .fb_sharecount_zero {
-    -moz-border-radius: 2px 2px 2px 2px;
-    background: url("http://static.fbshare.me/f_only.png") no-repeat scroll 20px 5px #3B5998;
-    display: block;
-    height: 47px;
-    margin-bottom: 2px;
-    width: 53px;
+.itp-share-reddit a:hover{
+    text-decoration: none !important;
+    background: none !important;
 }
