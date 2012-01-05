@@ -1,4 +1,4 @@
-ITPShare Module for Joomla! 
+ITPShare Module for Joomla! 1.5
 ==========================
 ( Version 1.8 )
 --------------------------

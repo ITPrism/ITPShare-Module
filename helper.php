@@ -42,7 +42,7 @@ class ItpShareHelper{
         if($params->get("twitterButton")) {
             
              $html = '
-             	<div class="itp-share-tw">
+             	<div class="itp-share-mod-tw">
                 	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $params->get("twitterLanguage") . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
                 	<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             	</div>
@@ -61,7 +61,7 @@ class ItpShareHelper{
         
         $html = "";
         if($params->get("plusButton")) {
-            $html .= '<div class="itp-share-gone">';
+            $html .= '<div class="itp-share-mod-gone">';
             
             switch($params->get("plusRenderer")) {
                 
@@ -179,7 +179,7 @@ $html .= '
                 $height = "25";
             }
             
-            $html = '<div class="itp-share-fbl">';
+            $html = '<div class="itp-share-mod-fbl">';
             
             switch($params->get("facebookLikeRenderer")) {
                 
@@ -205,7 +205,7 @@ $html .= '
     public static function genFacebookLikeIframe($params, $url, $layout, $faces, $height, $fbLocale) {
         
         $html = '
-            <div class="itp-share-fbl">
+            <div class="itp-share-mod-fbl">
             <iframe src="http://www.facebook.com/plugins/like.php?';
             
             if($params->get("facebookLikeAppId")) {
@@ -313,7 +313,7 @@ $html .= '"
         $html = "";
         if($params->get("diggButton")) {
             
-            $html .= '<div class="itp-share-digg">';
+            $html .= '<div class="itp-share-mod-digg">';
             
             // Load the JS library
             if($params->get("loadDiggJsLib")) {
@@ -344,7 +344,7 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
         if($params->get("stumbleButton")) {
             
             $html = '
-            <div class="itp-share-su">
+            <div class="itp-share-mod-su">
             <script type="text/javascript" src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&r=' . rawurlencode($url) . '"></script>
             </div>
             ';
@@ -359,7 +359,7 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
         if($params->get("linkedInButton")) {
             
             $html = '
-            <div class="itp-share-lin">
+            <div class="itp-share-mod-lin">
             <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="IN/Share" data-url="' . $url . '" data-counter="' . $params->get("linkedInType",'right'). '"></script>
             </div>
             ';
@@ -375,7 +375,7 @@ href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurl
         if($params->get("retweetmeButton")) {
             
             $html = '
-            <div class="itp-share-retweetme">
+            <div class="itp-share-mod-retweetme">
             <script type="text/javascript">
 tweetmeme_url = "' . $url . '";
 tweetmeme_style = "' . $params->get("retweetmeType") . '";
@@ -394,7 +394,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         $html = "";
         if($params->get("redditButton")) {
             
-            $html .= '<div class="itp-share-reddit">';
+            $html .= '<div class="itp-share-mod-reddit">';
             $redditType = $params->get("redditType");
             
             $jsButtons = array(1,2,3);
@@ -495,7 +495,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         $html = "";
         if($params->get("tumblrButton")) {
             
-            $html .= '<div class="itp-share-tbr">';
+            $html .= '<div class="itp-share-mod-tbr">';
             
             if($params->get("loadTumblrJsLib")) {
                 $html .= '<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>';

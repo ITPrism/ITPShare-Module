@@ -3,53 +3,53 @@
     display:block !important;        
 }
 
-.itp-share-tw{
+.itp-share-mod-tw{
     float:left;
     margin:10px 5px 0;
 }
 
-.itp-share-tbr{
+.itp-share-mod-tbr{
     float:left;
     margin:10px;
 }
 
-.itp-share-fbl{
+.itp-share-mod-fbl{
     float:left;
     margin:10px;
 }
-.itp-share-digg{
+.itp-share-mod-digg{
     float:left;
     margin-right:15px;
     margin-top:10px;
 }
-.itp-share-su{
+.itp-share-mod-su{
     float:left;
     margin-right:14px;
     margin-top:11px;
 }
-.itp-share-lin{
+.itp-share-mod-lin{
     float:left;
     margin-right:14px;
     margin-top:10px;
 }
 
-.itp-share-gone{
+.itp-share-mod-gone{
     float:left;
     margin-left:5px;
     margin-right:10px;
     margin-top:10px;
 }
 
-.itp-share-retweetme{
+.itp-share-mod-retweetme{
     float:left;
     margin-top:10px;
 }
 
-.itp-share-reddit{
+.itp-share-mod-reddit{
     float:left;
     margin-top:10px;
 }
-.itp-share-reddit a:hover{
+.itp-share-mod-reddit a:hover{
     text-decoration: none !important;
     background: none !important;
 }
