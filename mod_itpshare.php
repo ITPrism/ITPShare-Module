@@ -32,5 +32,4 @@ $title  = $doc->getTitle();
 
 // Title
 $title  = htmlentities($title, ENT_QUOTES, "UTF-8");
-dump($title, "title");
 require JModuleHelper::getLayoutPath('mod_itpshare', $params->get('layout', 'default'));
