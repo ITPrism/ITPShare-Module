@@ -537,4 +537,64 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         return $html;
     }
     
+    public static function getPinterest($params, $url, $title){
+        
+        $title = html_entity_decode($title,ENT_QUOTES, "UTF-8");
+        
+        $html = "";
+        if($params->get("pinterestButton")) {
+            
+            $html .= '<div class="itp-share-pinterest">';
+            
+            // Load the JS library
+            if($params->get("loadPinterestJsLib")) {
+                $html .= '<!-- Include ONCE for ALL buttons in the page -->
+<script type="text/javascript">
+(function() {
+    window.PinIt = window.PinIt || { loaded:false };
+    if (window.PinIt.loaded) return;
+    window.PinIt.loaded = true;
+    function async_load(){
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        if (window.location.protocol == "https:")
+            s.src = "https://assets.pinterest.com/js/pinit.js";
+        else
+            s.src = "http://assets.pinterest.com/js/pinit.js";
+        var x = document.getElementsByTagName("script")[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    if (window.attachEvent)
+        window.attachEvent("onload", async_load);
+    else
+        window.addEventListener("load", async_load, false);
+})();
+</script>
+';
+            }
+            
+$html .= '<!-- Customize and include for EACH button in the page -->
+<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType").'">Pin It</a>';
+            $html .= '</div>';
+        }
+        
+        return $html;
+    }
+    
+    public static function getBuffer($params, $url, $title){
+        
+        $html = "";
+        if($params->get("bufferButton")) {
+            
+            $html = '
+            <div class="itp-share-buffer">
+            <a href="http://bufferapp.com/add" class="buffer-add-button" data-text="' . $title . '" data-url="'.$url.'" data-count="'.$params->get("bufferType").'" data-via="'.$params->get("bufferTwitterName").'">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>
+            </div>
+            ';
+        }
+        
+        return $html;
+    }
+    
 }
