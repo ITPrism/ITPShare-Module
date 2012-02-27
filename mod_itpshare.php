@@ -17,16 +17,18 @@ defined('_JEXEC') or die;
 // Include the syndicate functions only once
 require_once dirname(__FILE__).'/helper.php';
 
-$doc = JFactory::getDocument();
+$moduleClassSfx = htmlspecialchars($params->get('moduleclass_sfx'));
 
 if($params->get("loadCss")) {
+    $doc = JFactory::getDocument();
     $doc->addStyleSheet("modules/mod_itpshare/style.css");
 }
 
+// URL
 $url    = JURI::getInstance();
 $url    = $url->toString();
 $title  = $doc->getTitle();
 
+// Title
 $title  = htmlentities($title, ENT_QUOTES, "UTF-8");
-
-require(JModuleHelper::getLayoutPath('mod_itpshare'));
+require JModuleHelper::getLayoutPath('mod_itpshare', $params->get('layout', 'default'));

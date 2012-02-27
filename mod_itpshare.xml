@@ -14,6 +14,7 @@
 		<filename>index.html</filename>
 		<filename>helper.php</filename>
 		<filename>style.css</filename>
+		<filename>README.md</filename>
 		<folder>tmpl</folder>
 	</files>
 
@@ -376,6 +377,32 @@
             <option value="uk">Ukrainian</option>
             <option value="vi">Vietnamese</option>
         </param>
+        
+        <param name="spacer10" type="spacer" class="text" label="############# PINTEREST SETTINGS #############" />
+        <param name="pinterestButton" type="radio" default="0" label="Pinterest Button" description="Show or hide Pinterest button." >
+           <option value="0">Hide</option>
+           <option value="1">Show</option>
+        </param>
+        <param name="pinterestType" type="list" default="horizontal" label="Pinterest Type" description="The type of the button." >
+           <option value="horizontal">Horizontal</option>
+           <option value="vertical">Vertical</option>
+           <option value="none">None</option>
+        </param>
+        
+        <param name="spacer11" type="spacer" class="text" label="############# BUFFER SETTINGS #############" />
+        <param name="bufferButton" type="radio" default="0" label="Buffer Button" description="Show or hide BufferApp.com buttons." >
+           <option value="0">Hide</option>
+           <option value="1">Show</option>
+        </param>
+        <param name="bufferType" type="list" default="horizontal" label="Buffer Type" description="The type of the button." >
+           <option value="horizontal">Horizontal</option>
+           <option value="vertical">Vertical</option>
+           <option value="none">None</option>
+        </param>
+        <param name="bufferTwitterName" type="text" default="" size="80"
+                    label="Twitter Username"
+                    description="Enter the name of your twitter account you want to be mentioned." />
+                    
 	</params>
 
     <params group="advanced">
@@ -401,29 +428,35 @@
             <option value="1">Yes</option>
         </param>
         
-        <field name="@spacer11" type="spacer" default="############# TUMBLR ADVANCED SETTINGS #############" label="" description="" />
-        <field name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
+        <param name="@spacer11" type="spacer" default="############# TUMBLR ADVANCED SETTINGS #############" label="" description="" />
+        <param name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
-        </field>
+        </param>
         
-        <field name="@spacer12" type="spacer" default="############# DIGG ADVANCED SETTINGS #############" label="" description="" />
-        <field name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
+        <param name="@spacer12" type="spacer" default="############# DIGG ADVANCED SETTINGS #############" label="" description="" />
+        <param name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
-        </field>
+        </param>
         
-        <field name="@spacer13" type="spacer" default="############# GOOGLE PLUS ADVANCED SETTINGS #############" label="" description="" />
-        <field name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
+        <param name="@spacer13" type="spacer" default="############# GOOGLE PLUS ADVANCED SETTINGS #############" label="" description="" />
+        <param name="loadGooglePlusJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google Plus JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Google Plus widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
-        </field>
+        </param>
         
-        <field name="@spacer14" type="spacer" default="############# ITPShare SETTINGS #############" label="" description="" />
-        <field name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
+        <param name="spacer15" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
+        <param name="loadPinterestJsLib" type="radio" default="1" label="Load Pinterest JS library" description="Pass loading the Pinterest JavaScript library. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Pinterest widgets.">
             <option value="0">No</option>
             <option value="1">Yes</option>
-        </field>
+        </param>
+        
+        <param name="@spacer14" type="spacer" default="############# ITPShare SETTINGS #############" label="" description="" />
+        <param name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </param>
         
         <param name="@spacer15" type="spacer" default="############# EXTRA BUTTONS #############" label="" description="" />
         <param name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an extra button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />

@@ -1,12 +1,16 @@
 ITPShare Module for Joomla! 1.5
 ==========================
-( Version 1.8 )
+( Version 1.9 )
 --------------------------
-
 
 
 Changelog
 ---------
+
+v1.9
+-----
+* Added Pinterest button
+* Added BufferApp button
 
 v1.8
 -----
