@@ -19,8 +19,8 @@ defined('_JEXEC') or die;?>
     echo ItpShareHelper::getLinkedIn($params, $url, $title);
     echo ItpShareHelper::getTumblr($params, $url, $title);
     echo ItpShareHelper::getBuffer($params, $url, $title);
-    echo ItpShareHelper::getReddit($params, $url, $title);
     echo ItpShareHelper::getPinterest($params, $url, $title);
+    echo ItpShareHelper::getReddit($params, $url, $title);
     echo ItpShareHelper::getReTweetMeMe($params, $url, $title);
     echo ItpShareHelper::getFacebookLike($params, $url, $title);
     echo ItpShareHelper::getGooglePlusOne($params, $url, $title);
