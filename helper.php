@@ -41,9 +41,19 @@ class ItpShareHelper{
         $html = "";
         if($params->get("twitterButton")) {
             
+        	/**** Get locale code ***/
+            if(!$params->get("dynamicLocale")) {
+                $locale   = $params->get("twitterLanguage", "en");
+            } else {
+                $tag      = JFactory::getLanguage()->getTag();
+                $locale   = str_replace("-","_", $tag);
+                $locales  = self::getButtonsLocales($locale); 
+                $locale   = JArrayHelper::getValue($locales, "twitter", "en");
+            }
+            
              $html = '
              	<div class="itp-share-mod-tw">
-                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $params->get("twitterLanguage") . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
+                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $locale . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
                 	<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             	</div>
             ';
@@ -53,14 +63,22 @@ class ItpShareHelper{
     }
     
     public static function getGooglePlusOne($params, $url, $title){
-        $language = "";
-        
-        if($params->get("plusLocale")) {
-            $language = " {lang: '" . $params->get("plusLocale") . "'};";
-        }
         
         $html = "";
         if($params->get("plusButton")) {
+            
+            /**** Get locale code ***/
+            if(!$params->get("dynamicLocale")) {
+                $locale   = $params->get("plusLocale", "en");
+            } else {
+                $tag      = JFactory::getLanguage()->getTag();
+                $locale   = str_replace("-","_", $tag);
+                $locales  = self::getButtonsLocales($locale); 
+                $locale   = JArrayHelper::getValue($locales, "google", "en");
+            }
+            
+            $language = " {lang: '" . $locale . "'};";
+            
             $html .= '<div class="itp-share-mod-gone">';
             
             switch($params->get("plusRenderer")) {
@@ -162,16 +180,20 @@ $html .= '
         $html = "";
         if($params->get("facebookLikeButton")) {
             
-            if($params->get("fbDynamicLocale", 0)) {
-                $fbLocale = JFactory::getLanguage();
-                $fbLocale = $fbLocale->getTag();
-                $fbLocale = str_replace("-","_",$fbLocale);
+        	/**** Get locale code ***/
+            if(!$params->get("dynamicLocale")) {
+                $locale   = $params->get("fbLocale", "en_US");
             } else {
-                $fbLocale = $params->get("fbLocale", "en_US");
+                $tag      = JFactory::getLanguage()->getTag();
+                $locale   = str_replace("-","_", $tag);
+                $locales  = self::getButtonsLocales($locale); 
+                $locale   = JArrayHelper::getValue($locales, "facebook", "en_US");
             }
             
+            /**** Faces ***/
             $faces = (!$params->get("facebookLikeFaces")) ? "false" : "true";
             
+            /**** Layout Styles ***/
             $layout = $params->get("facebookLikeType", "button_count");
             if(strcmp("box_count", $layout)==0){
                 $height = "80";
@@ -179,20 +201,21 @@ $html .= '
                 $height = "25";
             }
             
+            /**** Generate code ***/
             $html = '<div class="itp-share-mod-fbl">';
             
             switch($params->get("facebookLikeRenderer")) {
                 
                 case 0: // iframe
-                    $html .= self::genFacebookLikeIframe($params, $url, $layout, $faces, $height, $fbLocale);
+                    $html .= self::genFacebookLikeIframe($params, $url, $layout, $faces, $height, $locale);
                 break;
                     
                 case 1: // XFBML
-                    $html .= self::genFacebookLikeXfbml($params, $url, $layout, $faces, $height, $fbLocale);
+                    $html .= self::genFacebookLikeXfbml($params, $url, $layout, $faces, $height, $locale);
                 break;
              
                 default: // HTML5
-                   $html .= self::genFacebookLikeHtml5($params, $url, $layout, $faces, $height, $fbLocale);
+                   $html .= self::genFacebookLikeHtml5($params, $url, $layout, $faces, $height, $locale);
                 break;
             }
             
@@ -597,4 +620,165 @@ $html .= '<!-- Customize and include for EACH button in the page -->
         return $html;
     }
     
+    public static function getButtonsLocales($locale) {
+        
+         // Default locales
+        $result = array(
+            "twitter"     => "en",
+        	"facebook"    => "en_US",
+        	"google"      => "en"
+        );
+        
+        // The locales map
+        $locales = array (
+            "en_US" => array(
+                "twitter"     => "en",
+            	"facebook"    => "en_US",
+            	"google"      => "en"
+            ),
+            "en_GB" => array(
+                "twitter"     => "en",
+            	"facebook"    => "en_GB",
+            	"google"      => "en_GB"
+            ),
+            "th_TH" => array(
+                "twitter"     => "th",
+            	"facebook"    => "th_TH",
+            	"google"      => "th"
+            ),
+            "ms_MY" => array(
+                "twitter"     => "msa",
+            	"facebook"    => "ms_MY",
+            	"google"      => "ms"
+            ),
+            "tr_TR" => array(
+                "twitter"     => "tr",
+            	"facebook"    => "tr_TR",
+            	"google"      => "tr"
+            ),
+            "hi_IN" => array(
+                "twitter"     => "hi",
+            	"facebook"    => "hi_IN",
+            	"google"      => "hi"
+            ),
+            "tl_PH" => array(
+                "twitter"     => "fil",
+            	"facebook"    => "tl_PH",
+            	"google"      => "fil"
+            ),
+            "zh_CN" => array(
+                "twitter"     => "zh-cn",
+            	"facebook"    => "zh_CN",
+            	"google"      => "zh"
+            ),
+            "ko_KR" => array(
+                "twitter"     => "ko",
+            	"facebook"    => "ko_KR",
+            	"google"      => "ko"
+            ),
+            "it_IT" => array(
+                "twitter"     => "it",
+            	"facebook"    => "it_IT",
+            	"google"      => "it"
+            ),
+            "da_DK" => array(
+                "twitter"     => "da",
+            	"facebook"    => "da_DK",
+            	"google"      => "da"
+            ),
+            "fr_FR" => array(
+                "twitter"     => "fr",
+            	"facebook"    => "fr_FR",
+            	"google"      => "fr"
+            ),
+            "pl_PL" => array(
+                "twitter"     => "pl",
+            	"facebook"    => "pl_PL",
+            	"google"      => "pl"
+            ),
+            "nl_NL" => array(
+                "twitter"     => "nl",
+            	"facebook"    => "nl_NL",
+            	"google"      => "nl"
+            ),
+            "id_ID" => array(
+                "twitter"     => "in",
+            	"facebook"    => "nl_NL",
+            	"google"      => "in"
+            ),
+            "hu_HU" => array(
+                "twitter"     => "hu",
+            	"facebook"    => "hu_HU",
+            	"google"      => "hu"
+            ),
+            "fi_FI" => array(
+                "twitter"     => "fi",
+            	"facebook"    => "fi_FI",
+            	"google"      => "fi"
+            ),
+            "es_ES" => array(
+                "twitter"     => "es",
+            	"facebook"    => "es_ES",
+            	"google"      => "es"
+            ),
+            "ja_JP" => array(
+                "twitter"     => "ja",
+            	"facebook"    => "ja_JP",
+            	"google"      => "ja"
+            ),
+            "nn_NO" => array(
+                "twitter"     => "no",
+            	"facebook"    => "nn_NO",
+            	"google"      => "no"
+            ),
+            "ru_RU" => array(
+                "twitter"     => "ru",
+            	"facebook"    => "ru_RU",
+            	"google"      => "ru"
+            ),
+            "pt_PT" => array(
+                "twitter"     => "pt",
+            	"facebook"    => "pt_PT",
+            	"google"      => "pt"
+            ),
+            "pt_BR" => array(
+                "twitter"     => "pt",
+            	"facebook"    => "pt_BR",
+            	"google"      => "pt"
+            ),
+            "sv_SE" => array(
+                "twitter"     => "sv",
+            	"facebook"    => "sv_SE",
+            	"google"      => "sv"
+            ),
+            "zh_HK" => array(
+                "twitter"     => "zh-tw",
+            	"facebook"    => "zh_HK",
+            	"google"      => "zh_HK"
+            ),
+            "zh_TW" => array(
+                "twitter"     => "zh-tw",
+            	"facebook"    => "zh_TW",
+            	"google"      => "zh_TW"
+            ),
+            "de_DE" => array(
+                "twitter"     => "de",
+            	"facebook"    => "de_DE",
+            	"google"      => "de"
+            ),
+            "bg_BG" => array(
+                "twitter"     => "en",
+            	"facebook"    => "bg_BG",
+            	"google"      => "bg"
+            ),
+            
+        );
+        
+        if(isset($locales[$locale])) {
+            $result = $locales[$locale];
+        }
+        
+        return $result;
+        
+    }
 }
