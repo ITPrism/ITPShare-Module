@@ -48,18 +48,30 @@
 				   <option value="horizontal">Horizontal</option>
 				</field>
 				<field name="twitterLanguage" type="list" default="en" label="Twitter Language" description="Choose the language of the Twitter button." >
-				   <option value="nl">Dutch</option>
-                   <option value="en">English</option>
-                   <option value="fr">French</option>
-                   <option value="gr">German</option>
-                   <option value="id">Indonesian</option>
-                   <option value="it">Italian</option>
-                   <option value="jp">Japanese</option>
-                   <option value="ko">Korean</option>
-                   <option value="pt">Portuguese</option>
-                   <option value="ru">Russian</option>
-                   <option value="es">Spanish</option>
+				   <option value="en">English</option>
+                   <option value="th">Thai</option>
+                   <option value="msa">Malay</option>
                    <option value="tr">Turkish</option>
+                   <option value="hi">Hindi</option>
+                   <option value="fil">Filipino</option>
+                   <option value="zh-cn">Simplified Chinese</option>
+                   <option value="ko">Korean</option>
+                   <option value="it">Italian</option>
+                   <option value="da">Danish</option>
+                   <option value="fr">French</option>
+                   <option value="pl">Polish</option>
+                   <option value="nl">Dutch</option>
+                   <option value="id">Indonesian</option>
+                   <option value="hu">Hungarian</option>
+                   <option value="fi">Finnish</option>
+                   <option value="es">Spanish</option>
+                   <option value="jp">Japanese</option>
+                   <option value="no">Norwegian</option>
+                   <option value="ru">Russian</option>
+                   <option value="pt">Portuguese</option>
+                   <option value="sv">Swedish</option>
+                   <option value="zh-tw">Traditional Chinese</option>
+                   <option value="de">German</option>
 				</field>
 				
 				<field name="spacer2" type="spacer" class="text" label="############# TUMBLR SETTINGS #############" />
@@ -115,10 +127,6 @@
 		            <option value="verdana">verdana</option>
 		        </field>
 				<field name="facebookLikeWidth" type="text" default="90" label="Facebook Like Width" description="Enter the width of your Facebook Like button." />
-				<field name="fbDynamicLocale" type="radio" default="0" label="Auto language" description="If you set 'Yes' the plugin will take Joomla! locale settings automatically.">
-                    <option value="0">No</option>
-                    <option value="1">Yes</option>
-                </field>
                 <field name="fbLocale" type="list" default="en_US" label="Language" description="A list with locations and language for the button. Default location - English [en_US].">
                     <option value="af_ZA">Afrikaans</option>
                     <option value="ar_AR">Arabic</option>
@@ -480,6 +488,10 @@
                 <field name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
+                </field>
+                <field name="dynamicLocale" type="radio" default="0" label="Auto language" description="If you set 'Yes' the plugin will take Joomla! locale settings automatically.">
+                     <option value="0">No</option>
+                     <option value="1">Yes</option>
                 </field>
                 
                 <field name="spacer17" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
