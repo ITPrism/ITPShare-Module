@@ -495,11 +495,11 @@
                 </field>
                 
                 <field name="spacer17" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
-		        <field name="ebuttons1" type="textarea" default="" label="A Button code 1" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons2" type="textarea" default="" label="A Button code 2" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons3" type="textarea" default="" label="A Button code 3" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons4" type="textarea" default="" label="A Button code 4" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons5" type="textarea" default="" label="A Button code 5" description="Insert an additional button ccode that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+		        <field name="ebuttons1" type="textarea" default="" label="Custom Button code 1" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+                <field name="ebuttons2" type="textarea" default="" label="Custom Button code 2" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+                <field name="ebuttons3" type="textarea" default="" label="Custom Button code 3" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+                <field name="ebuttons4" type="textarea" default="" label="Custom Button code 4" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+                <field name="ebuttons5" type="textarea" default="" label="Custom Button code 5" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
 			</fieldset>
 		</fields>
 	</config>
