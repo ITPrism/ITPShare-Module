@@ -16,6 +16,34 @@ defined('_JEXEC') or die;
 
 class ItpShareHelper{
     
+	/**
+     * A method that make a long url to short url
+     * 
+     * @param string $link
+     * @param array $params
+     * @return string
+     */
+    public static function getShortUrl($link, $params){
+        
+        // Include the syndicate functions only once
+		JLoader::register("ItpShortUrlSocialButtons", dirname(__FILE__).'/itpshorturlsocialbuttons.php');
+
+        $options = array(
+            "login"     => $params->get("sLogin"),
+            "apiKey"    => $params->get("sApiKey"),
+            "service"   => $params->get("sService"),
+        );
+        $shortUrl 	= new ItpShortUrlSocialButtons($link,$options);
+        $shortLink  = $shortUrl->getUrl();
+        
+        if(!$shortLink) {
+	        $shortLink = "";
+        }
+        
+        return $shortLink;
+            
+    }
+    
     /**
      * Generate a code for the extra buttons
      */
