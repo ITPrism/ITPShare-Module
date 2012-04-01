@@ -7,9 +7,9 @@
 	<license>http://www.gnu.org/copyleft/gpl.html</license>
 	<authorEmail>todor@itprism.com</authorEmail>
 	<authorUrl>http://itprism.com</authorUrl>
-	<version>2.0</version>
+	<version>2.1</version>
 	<description><![CDATA[
-	<p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
+	<p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
 	<p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.<p>
 	<p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
 	<p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>]]></description>
@@ -494,7 +494,17 @@
                      <option value="1">Yes</option>
                 </field>
                 
-                <field name="spacer17" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
+                <field name="spacer17" type="spacer" class="text" label="############# SHORTENER URL SERVICES SETTINGS #############"  />
+                <field name="sService" type="list" default="" label="Shortener service" description="You can select a shortener URL service. To work properly, a PHP option 'allow_url_fopen' must be enabled. You must enable PHP curl for Google shortener serice." >
+                   <option value="">None</option>
+                   <option value="bitly">bit.ly</option>
+                   <option value="tinycc">tiny.cc</option>
+                   <option value="jmp">j.mp</option>
+                </field>
+                <field name="sLogin" type="text" default="" label="Login" description="Username for the shortener URL service."/>
+                <field name="sApiKey" type="text" default="" size="80" label="API key" description="An API key for the shortener URL serivce."/>
+                
+                <field name="spacer18" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
 		        <field name="ebuttons1" type="textarea" default="" label="Custom Button code 1" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
                 <field name="ebuttons2" type="textarea" default="" label="Custom Button code 2" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
                 <field name="ebuttons3" type="textarea" default="" label="Custom Button code 3" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />

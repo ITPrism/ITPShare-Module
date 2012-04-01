@@ -18,11 +18,12 @@ defined('_JEXEC') or die;
 require_once dirname(__FILE__).'/helper.php';
 
 $moduleClassSfx = htmlspecialchars($params->get('moduleclass_sfx'));
+$doc = JFactory::getDocument();
+/** $doc JDocumentHTML **/
 
 // Loading style.css
 if($params->get("loadCss")) {
-    $doc = JFactory::getDocument();
-    $doc->addStyleSheet("modules/mod_itpshare/style.css");
+    $doc->addStyleSheet(JURI::root()."modules/mod_itpshare/style.css");
 }
 
 // URL
@@ -30,6 +31,11 @@ $url    = JURI::getInstance();
 $url    = $url->toString();
 $title  = $doc->getTitle();
 
+/*** Convert the url to short one ***/
+if($params->get("sService")) {
+	$url = ItpShareHelper::getShortUrl($url, $params);
+}
+        
 // Title
 $title  = htmlentities($title, ENT_QUOTES, "UTF-8");
 require JModuleHelper::getLayoutPath('mod_itpshare', $params->get('layout', 'default'));

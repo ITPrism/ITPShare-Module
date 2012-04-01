@@ -1,10 +1,14 @@
 ITPShare Module for Joomla! 
 ==========================
-( Version v2.0 )
+( Version v2.1 )
 --------------------------
 
 Changelog
 ---------
+v2.1
+----
+* Added services that convert addresses into shorter ones
+
 v2.0
 ----
 * Improved the multilanguage
