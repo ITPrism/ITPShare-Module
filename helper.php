@@ -795,7 +795,7 @@ $html .= '<!-- Customize and include for EACH button in the page -->
     public static function getGoogleShare($params, $url, $title){
         
         $html = "";
-        if($params->get("plusButton")) {
+        if($params->get("gsButton")) {
             
         	/**** Get locale code ***/
             if(!$params->get("dynamicLocale")) {
@@ -824,7 +824,7 @@ $html .= '<!-- Customize and include for EACH button in the page -->
         	if($params->get("loadGoogleJsLib")) {
         
                 $html .= '<script type="text/javascript">';
-                $html .= ' window.___gcfg = {lang: "'.$locale.'"}';
+                $html .= ' window.___gcfg = {lang: "'.$locale.'"}; ';
                 
                 $html .= '
                   (function() {
