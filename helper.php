@@ -125,7 +125,7 @@ class ItpShareHelper{
 		if($params->get("loadGoogleJsLib")) {
   
             $html .= '<script type="text/javascript">';
-            $html .= ' window.___gcfg = {lang: "' . $locale . '"};';
+            $html .= ' window.___gcfg = {lang: "' . $locale . '"}; ';
             
             $html .= '
               (function() {
@@ -788,10 +788,10 @@ $html .= '<!-- Customize and include for EACH button in the page -->
         
     }
     
-public static function getGoogleShare($params, $url, $title){
+    public static function getGoogleShare($params, $url, $title){
         
         $html = "";
-        if($params->get("plusButton")) {
+        if($params->get("gsButton")) {
             
         	/**** Get locale code ***/
             if(!$params->get("dynamicLocale")) {
@@ -817,10 +817,10 @@ public static function getGoogleShare($params, $url, $title){
             }
             
             // Load the JavaScript asynchroning
-        	if($params->get("loadGoogleJsLib")) {
-        
+    		if($params->get("loadGoogleJsLib")) {
+      
                 $html .= '<script type="text/javascript">';
-                $html .= ' window.___gcfg = {lang: "'.$locale.'"}';
+                $html .= ' window.___gcfg = {lang: "' . $locale . '"}; ';
                 
                 $html .= '
                   (function() {
@@ -829,7 +829,7 @@ public static function getGoogleShare($params, $url, $title){
                     var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
                   })();
                 </script>';
-            }
+			}
           
             $html .= '</div>';
         }
