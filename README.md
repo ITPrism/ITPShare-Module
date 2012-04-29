@@ -1,11 +1,16 @@
 ITPShare Module for Joomla! 1.5
 ==========================
-( Version 2.1 )
+( Version 2.2 )
 --------------------------
 
 
 Changelog
 ---------
+
+v2.2
+----
+* Added Google Share Button
+
 v2.1
 ----
 * Added services that convert addresses into shorter ones

@@ -1,7 +1,7 @@
 <?php 
 /**
  * @package      ITPrism Modules
- * @subpackage   ITPShare
+ * @subpackage   Social
  * @author       Todor Iliev
  * @copyright    Copyright (C) 2010 Todor Iliev <todor@itprism.com>. All rights reserved.
  * @license      http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -24,6 +24,7 @@ defined('_JEXEC') or die;?>
     echo ItpShareHelper::getReTweetMeMe($params, $url, $title);
     echo ItpShareHelper::getFacebookLike($params, $url, $title);
     echo ItpShareHelper::getGooglePlusOne($params, $url, $title);
+    echo ItpShareHelper::getGoogleShare($params, $url, $title);
     echo ItpShareHelper::getExtraButtons($params, $url, $title);
     ?>
 </div>
