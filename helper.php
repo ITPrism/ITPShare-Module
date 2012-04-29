@@ -37,7 +37,10 @@ class ItpShareHelper{
         $shortLink  = $shortUrl->getUrl();
         
         if(!$shortLink) {
-	        $shortLink = "";
+        	$message   = $shortUrl->getError();
+        	jimport('joomla.error.log');
+            $log = &JLog::getInstance();
+            $log->addEntry(array('comment' => $message));
         }
         
         return $shortLink;
