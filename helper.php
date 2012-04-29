@@ -1,7 +1,7 @@
 <?php
 /**
  * @package      ITPrism Modules
- * @subpackage   ITPShare
+ * @subpackage   Social
  * @author       Todor Iliev
  * @copyright    Copyright (C) 2010 Todor Iliev <todor@itprism.com>. All rights reserved.
  * @license      http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -37,10 +37,11 @@ class ItpShareHelper{
         $shortLink  = $shortUrl->getUrl();
         
         if(!$shortLink) {
+            $loggerOptions = array();
         	jimport('joomla.log.loggers.formattedtext');
         	$message   = $shortUrl->getError();
             $entry     = new JLogEntry($message);
-	        $logger    = new JLoggerFormattedText($this->loggerOptions);
+	        $logger    = new JLoggerFormattedText($loggerOptions);
 	        $logger->addEntry($entry, JLog::ALERT);
 	        $shortLink = "";
         }
@@ -97,7 +98,6 @@ class ItpShareHelper{
     
     public static function getGooglePlusOne($params, $url, $title){
         
-        
         $html = "";
         if($params->get("plusButton")) {
             
@@ -111,21 +111,33 @@ class ItpShareHelper{
                 $locale   = JArrayHelper::getValue($locales, "google", "en");
             }
             
-            $language = " {lang: '" . $locale . "'};";
-            
             $html .= '<div class="itp-share-gone">';
             
             switch($params->get("plusRenderer")) {
                 
                 case 1:
-                    $html .= self::genGooglePlus($params, $url, $language);
+                    $html .= self::genGooglePlus($params, $url);
                     break;
                     
                 default:
-                    $html .= self::genGooglePlusHTML5($params, $url, $language);
+                    $html .= self::genGooglePlusHTML5($params, $url);
                     break;
             }
             
+            // Load the JavaScript asynchroning
+    		if($params->get("loadGoogleJsLib")) {
+      
+                $html .= '<script type="text/javascript">';
+                $html .= ' window.___gcfg = {lang: "' . $locale . '"};';
+                
+                $html .= '
+                  (function() {
+                    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+                    po.src = "https://apis.google.com/js/plusone.js";
+                    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>';
+    		}
           
             $html .= '</div>';
         }
@@ -139,9 +151,8 @@ class ItpShareHelper{
      * 
      * @param array $params
      * @param string $url
-     * @param string $language
      */
-    public static function genGooglePlus($params, $url, $language) {
+    public static function genGooglePlus($params, $url) {
         
         $annotation = "";
         if($params->get("plusAnnotation")) {
@@ -149,24 +160,6 @@ class ItpShareHelper{
         }
         
         $html = '<g:plusone size="' . $params->get("plusType") . '" ' . $annotation . ' href="' . $url . '"></g:plusone>';
-
-        
-        // Load the JavaScript asynchroning
-		if($params->get("loadGooglePlusJsLib")) {
-  
-$html .= '<script type="text/javascript">';
-if($language) {
-   $html .= ' window.___gcfg = '.$language;
-}
-
-$html .= '
-  (function() {
-    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
-    po.src = "https://apis.google.com/js/plusone.js";
-    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>';
-				}
 				
         return $html;
     }
@@ -177,9 +170,8 @@ $html .= '
      * 
      * @param array $params
      * @param string $url
-     * @param string $language
      */
-    public static function genGooglePlusHTML5($params, $url, $language) {
+    public static function genGooglePlusHTML5($params, $url) {
         
         $annotation = "";
         if($params->get("plusAnnotation")) {
@@ -188,23 +180,6 @@ $html .= '
         
         $html = '<div class="g-plusone" data-size="' . $params->get("plusType") . '" ' . $annotation . ' data-href="' . $url . '"></div>';
 
-        // Load the JavaScript asynchroning
-		if($params->get("loadGooglePlusJsLib")) {
-      
-            $html .= '<script type="text/javascript">';
-            if($language) {
-               $html .= ' window.___gcfg = '.$language;
-            }
-            
-            $html .= '
-              (function() {
-                var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
-                po.src = "https://apis.google.com/js/plusone.js";
-                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
-              })();
-            </script>';
-		}
-    				
         return $html;
     }
     
@@ -815,6 +790,105 @@ $html .= '<!-- Customize and include for EACH button in the page -->
         
         return $result;
         
+    }
+    
+    public static function getGoogleShare($params, $url, $title){
+        
+        $html = "";
+        if($params->get("plusButton")) {
+            
+        	/**** Get locale code ***/
+            if(!$params->get("dynamicLocale")) {
+                $locale   = $params->get("gsLocale", "en");
+            } else {
+                $tag      = JFactory::getLanguage()->getTag();
+                $locale   = str_replace("-","_", $tag);
+                $locales  = self::getButtonsLocales($locale); 
+                $locale   = JArrayHelper::getValue($locales, "google", "en");
+            }
+            
+            $html .= '<div class="itp-share-gshare">';
+            
+            switch($params->get("gsRenderer")) {
+                
+                case 1:
+                    $html .= self::genGoogleShare($params, $url);
+                    break;
+                    
+                default:
+                    $html .= self::genGoogleShareHTML5($params, $url);
+                    break;
+            }
+            
+            // Load the JavaScript asynchroning
+        	if($params->get("loadGoogleJsLib")) {
+        
+                $html .= '<script type="text/javascript">';
+                $html .= ' window.___gcfg = {lang: "'.$locale.'"}';
+                
+                $html .= '
+                  (function() {
+                    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+                    po.src = "https://apis.google.com/js/plusone.js";
+                    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>';
+            }
+          
+            $html .= '</div>';
+        }
+        
+        return $html;
+    }
+    
+    /**
+     * 
+     * Render the Google Share in standart syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    public static function genGoogleShare($params, $url) {
+        
+        $annotation = "";
+        if($params->get("gsAnnotation")) {
+            $annotation = ' annotation="' . $params->get("gsAnnotation") . '"';
+        }
+        
+        $size = "";
+        if($params->get("gsAnnotation") != "vertical-bubble") {
+            $size = ' height="' . $params->get("gsType") . '" ';
+        }
+        
+        $html = '<g:plus action="share" ' . $annotation . $size . ' href="' . $url . '"></g:plus>';
+        
+        return $html;
+    }
+    
+    /**
+     * 
+     * Render the Google Share in HTML5 syntax
+     * 
+     * @param array $params
+     * @param string $url
+     * @param string $language
+     */
+    public static function genGoogleShareHTML5($params, $url) {
+        
+        $annotation = "";
+        if($params->get("gsAnnotation")) {
+            $annotation = ' data-annotation="' . $params->get("gsAnnotation") . '"';
+        }
+        
+        $size = "";
+        if($params->get("gsAnnotation") != "vertical-bubble") {
+            $size = ' data-height="' . $params->get("gsType") . '" ';
+        }
+        
+        $html = '<div class="g-plus" data-action="share" ' . $annotation . $size . ' data-href="' . $url . '"></div>';
+
+        return $html;
     }
     
 }

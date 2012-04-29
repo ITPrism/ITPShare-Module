@@ -24,6 +24,7 @@ defined('_JEXEC') or die;?>
     echo ItpShareHelper::getReTweetMeMe($params, $url, $title);
     echo ItpShareHelper::getFacebookLike($params, $url, $title);
     echo ItpShareHelper::getGooglePlusOne($params, $url, $title);
+    echo ItpShareHelper::getGoogleShare($params, $url, $title);
     echo ItpShareHelper::getExtraButtons($params, $url, $title);
     ?>
 </div>
