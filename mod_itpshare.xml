@@ -24,6 +24,8 @@
 		<folder>tmpl</folder>
 	</files>
 
+    <help url="HELP_EXTENSIONS_MODULE_ITPSHARE_URL"/>
+
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
