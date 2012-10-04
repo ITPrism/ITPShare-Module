@@ -14,10 +14,9 @@
 // no direct access
 defined('_JEXEC') or die;
 
-// Include the syndicate functions only once
-require_once dirname(__FILE__).'/helper.php';
+JLoader::register('ItpShareHelper', dirname(__FILE__).DIRECTORY_SEPARATOR.'helper.php');
 
-$moduleClassSfx = htmlspecialchars($params->get('moduleclass_sfx'));
+$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
 $doc = JFactory::getDocument();
 /** $doc JDocumentHTML **/
 
@@ -27,15 +26,13 @@ if($params->get("loadCss")) {
 }
 
 // URL
-$url    = JURI::getInstance();
-$url    = $url->toString();
+$url    = JURI::getInstance()->toString();
 $title  = $doc->getTitle();
 
-/*** Convert the url to short one ***/
-if($params->get("sService")) {
+// Convert the url to short one
+if($params->get("shortener_service")) {
 	$url = ItpShareHelper::getShortUrl($url, $params);
 }
         
-// Title
-$title  = htmlentities($title, ENT_QUOTES, "UTF-8");
+$title  = JString::trim($title);
 require JModuleHelper::getLayoutPath('mod_itpshare', $params->get('layout', 'default'));

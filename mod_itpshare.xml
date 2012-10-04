@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="2.5" client="site" method="upgrade">
-	<name>ITPShare</name>
+	<name>MOD_ITPSHARE</name>
 	<author>Todor Iliev</author>
 	<creationDate>January, 2011</creationDate>
 	<copyright>Copyright (C) 2010 Todor Iliev ( ITPrism.com )</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html</license>
 	<authorEmail>todor@itprism.com</authorEmail>
 	<authorUrl>http://itprism.com</authorUrl>
-	<version>2.2</version>
-	<description><![CDATA[
-	<p><a href="http://itprism.com/free-joomla-extensions/socialmedia-share-plugin" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, Digg, LinkedIn, Stumbleupon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
-	<p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" title="Sponsoring" target="_blank">sponsor the extension via SMS or PayPal</a>.<p>
-	<p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive information about updates and new ITPrism extensions.</p>
-	<p>Please, <a href="http://extensions.joomla.org/extensions/social-web/republish/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>]]></description>
-	<languages>
-        <language tag="en-GB">en-GB.mod_itpshare.ini</language>
-        <language tag="en-GB">en-GB.mod_itpshare.sys.ini</language>
+	<version>2.3</version>
+	<description>MOD_ITPSHARE_DESC</description>
+	<languages  folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_itpshare.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_itpshare.sys.ini</language>
     </languages> 
     
 	<files>
 		<filename module="mod_itpshare">mod_itpshare.php</filename>
 		<filename>index.html</filename>
 		<filename>helper.php</filename>
-		<filename>itpshorturlsocialbuttons.php</filename>
+		<filename>shorturl.php</filename>
 		<filename>style.css</filename>
 		<filename>README.md</filename>
 		<folder>tmpl</folder>
@@ -31,56 +27,64 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="spacer1" type="spacer" class="text" label="############# TWITTER SETTINGS #############" />
-				<field name="twitterButton" type="radio" default="0" label="Twitter Button" description="Show or hide Twitter buttons." >
-				   <option value="0">Hide</option>
-				   <option value="1">Show</option>
+				<field name="spacer1" type="spacer" class="text" label="MOD_ITPSHARE_TWITTER_SETTINGS" />
+				<field name="twitterButton" type="radio" default="0" label="MOD_ITPSHARE_TWITTER_BUTTON" description="MOD_ITPSHARE_TWITTER_BUTTON_DESC" >
+				   <option value="0">JHIDE</option>
+				   <option value="1">JSHOW</option>
 				</field>
-				<field name="twitterName" type="text" default="" size="80" label="Twitter Name" description="Enter the name of your Twitter account." />
-				<field name="twitterRecommend" type="text" default="" size="80" label="Twitter Recommend" description="Enter the username of the related account." />
-                <field name="twitterHashtag" type="text" default="" size="80" label="Twitter Hashtags" description="Comma separated hashtags appended to tweet text." />
-                <field name="twitterSize" type="list" default="small" label="Twitter Button Size" description="Select the button size." >
-                   <option value="small">Small</option>
-                   <option value="large">Large</option>
+				<field name="twitterName" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_NAME" description="MOD_ITPSHARE_TWITTER_NAME_DESC" />
+				<field name="twitterRecommend" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_RECOMMEND" description="MOD_ITPSHARE_TWITTER_RECOMMEND_DESC" />
+                <field name="twitterHashtag" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_HASHTAGS" description="MOD_ITPSHARE_TWITTER_HASHTAGS_DESC" />
+                <field name="twitterSize" type="list" default="small" label="MOD_ITPSHARE_TWITTER_SIZE" description="MOD_ITPSHARE_TWITTER_SIZE_DESC" >
+                   <option value="small">MOD_ITPSHARE_SMALL</option>
+                   <option value="large">MOD_ITPSHARE_LARGE</option>
                 </field>
-				<field name="twitterCounter" type="list" default="horizontal" label="Twitter Counter" description="Show or hide Twitter counter." >
-				   <option value="none">Hide</option>
-				   <option value="vertical">Vertical</option>
-				   <option value="horizontal">Horizontal</option>
+				<field name="twitterCounter" type="list" default="horizontal" label="MOD_ITPSHARE_TWITTER_COUNTER" description="MOD_ITPSHARE_TWITTER_COUNTER_DESC" >
+				   <option value="none">JHIDE</option>
+				   <option value="vertical">MOD_ITPSHARE_VERTICAL</option>
+				   <option value="horizontal">MOD_ITPSHARE_HORIZONTAL</option>
 				</field>
-				<field name="twitterLanguage" type="list" default="en" label="Twitter Language" description="Choose the language of the Twitter button." >
+				<field name="twitterLanguage" type="list" default="en" label="MOD_ITPSHARE_TWITTER_LANGUAGE" description="MOD_ITPSHARE_TWITTER_LANGUAGE_DESC" >
+				   <option value="ar">Arabic</option>
+				   <option value="eu">Basque</option>
+				   <option value="ca">Catalan</option>
+				   <option value="cs">Czech</option>
+				   <option value="da">Danish</option>
+				   <option value="nl">Dutch</option>
 				   <option value="en">English</option>
-                   <option value="th">Thai</option>
-                   <option value="msa">Malay</option>
-                   <option value="tr">Turkish</option>
-                   <option value="hi">Hindi</option>
-                   <option value="fil">Filipino</option>
-                   <option value="zh-cn">Simplified Chinese</option>
+				   <option value="fa">Farsi</option>
+				   <option value="fil">Filipino</option>
+				   <option value="fr">French</option>
+				   <option value="fi">Finnish</option>
+				   <option value="de">German</option>
+				   <option value="el">Greek</option>
+				   <option value="hi">Hindi</option>
+				   <option value="hu">Hungarian</option>
+				   <option value="it">Italian</option>
+				   <option value="id">Indonesian</option>
+				   <option value="uk">Ukrainian</option>
+                   <option value="ur">Urdu</option>
                    <option value="ko">Korean</option>
-                   <option value="it">Italian</option>
-                   <option value="da">Danish</option>
-                   <option value="fr">French</option>
-                   <option value="pl">Polish</option>
-                   <option value="nl">Dutch</option>
-                   <option value="id">Indonesian</option>
-                   <option value="hu">Hungarian</option>
-                   <option value="fi">Finnish</option>
-                   <option value="es">Spanish</option>
-                   <option value="jp">Japanese</option>
-                   <option value="no">Norwegian</option>
+                   <option value="msa">Malay</option>
                    <option value="ru">Russian</option>
-                   <option value="pt">Portuguese</option>
+                   <option value="es">Spanish</option>
                    <option value="sv">Swedish</option>
+                   <option value="zh-cn">Simplified Chinese</option>
+                   <option value="no">Norwegian</option>
+                   <option value="pl">Polish</option>
+                   <option value="pt">Portuguese</option>
                    <option value="zh-tw">Traditional Chinese</option>
-                   <option value="de">German</option>
+                   <option value="th">Thai</option>
+                   <option value="tr">Turkish</option>
+                   <option value="jp">Japanese</option>
 				</field>
 				
-				<field name="spacer2" type="spacer" class="text" label="############# TUMBLR SETTINGS #############" />
-                <field name="tumblrButton" type="radio" default="0" label="Tumblr Button" description="Show or hide the Tumblr button." >
+				<field name="spacer2" type="spacer" class="text" label="MOD_ITPSHARE_TUMBLR_SETTINGS" />
+                <field name="tumblrButton" type="radio" default="0" label="MOD_ITPSHARE_TUMBLR_BUTTON" description="MOD_ITPSHARE_TUMBLR_BUTTON_DESC" >
                    <option value="0">Hide</option>
                    <option value="1">Show</option>
                 </field>
-                <field name="tumblrType" type="list" default="small" label="Tumblr Type" description="The type of your Tumblr button." >
+                <field name="tumblrType" type="list" default="small" label="MOD_ITPSHARE_TUMBLR_TYPE" description="MOD_ITPSHARE_TUMBLR_TYPE_DESC" >
                    <option value="0">Button 1</option>
                    <option value="1">Button 2</option>
                    <option value="2">Button 3</option>
@@ -91,34 +95,34 @@
                    <option value="7">Button 8</option>
                 </field>
 				
-				<field name="spacer3" type="spacer" class="text" label="############# FACEBOOK LIKE SETTINGS #############" />
-				<field name="facebookLikeButton" type="radio" default="0" label="Facebook Like Button" description="Show or hide Facebook Like button." >
-				   <option value="0">Hide</option>
-				   <option value="1">Show</option>
+				<field name="spacer3" type="spacer" class="text" label="MOD_ITPSHARE_FACEBOOK_SETTINGS" />
+				<field name="facebookLikeButton" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_BUTTON" description="MOD_ITPSHARE_FACEBOOK_BUTTON_DESC" >
+				   <option value="0">JHIDE</option>
+				   <option value="1">JSHOW</option>
 				</field>
-				<field name="facebookLikeRenderer" type="list" default="2" label="Facebook Like Renderer" description="Choose the renderer of your Facebook Like button." >
+				<field name="facebookLikeRenderer" type="list" default="2" label="MOD_ITPSHARE_FACEBOOK_RENDERER" description="MOD_ITPSHARE_FACEBOOK_RENDERER_DESC" >
 				   <option value="0">iframe</option>
 				   <option value="1">XFBML</option>
 				   <option value="2">HTML5</option>
 				</field>
-		        <field name="facebookLikeAction" type="list" default="like" label="Facebook Button Text" description="The verb to display on the button. Options: 'like', 'recommend' " >
-		           <option value="like">Like</option>
-		           <option value="recommend">Recommend</option>
+		        <field name="facebookLikeAction" type="list" default="like" label="MOD_ITPSHARE_FACEBOOK_TEXT" description="MOD_ITPSHARE_FACEBOOK_TEXT_DESC" >
+		           <option value="like">MOD_ITPSHARE_LIKE</option>
+		           <option value="recommend">MOD_ITPSHARE_RECOMMEND</option>
 		        </field>
-				<field name="facebookLikeType" type="list" default="button_count" label="Facebook Like Type" description="The type of your Facebook Like button." >
+				<field name="facebookLikeType" type="list" default="button_count" label="MOD_ITPSHARE_FACEBOOK_TYPE" description="MOD_ITPSHARE_FACEBOOK_TYPE_DESC" >
 					<option value="standard">Standard</option>
 				   <option value="box_count">Box count</option>
 				   <option value="button_count">Button count</option>
 				</field>
-				<field name="facebookLikeFaces" type="radio" default="0" label="Facebook Show Faces" description="Show or hide faces of people." >
-				   <option value="0">Hide</option>
-				   <option value="1">Show</option>
+				<field name="facebookLikeFaces" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_FACES" description="MOD_ITPSHARE_FACEBOOK_FACES_DESC" >
+				   <option value="0">JHIDE</option>
+				   <option value="1">JSHOW</option>
 				</field>
-				<field name="facebookLikeColor" type="list" default="light" label="Facebook Like Colour" description="Choose the colour schema of the like button." >
-				   <option value="light">Light</option>
-				   <option value="dark">Dark</option>
+				<field name="facebookLikeColor" type="list" default="light" label="MOD_ITPSHARE_FACEBOOK_COLOR" description="MOD_ITPSHARE_FACEBOOK_COLOR_DESC" >
+				   <option value="light">MOD_ITPSHARE_LIGHT</option>
+				   <option value="dark">MOD_ITPSHARE_DARK</option>
 				</field>
-				<field name="facebookLikeFont" type="list" default="" label="Facebook Like Font" description="The font to display in the button. Options: 'arial', 'lucida grande', 'segoe ui', 'tahoma', 'trebuchet ms', 'verdana' " >
+				<field name="facebookLikeFont" type="list" default="" label="MOD_ITPSHARE_FACEBOOK_FONT" description="MOD_ITPSHARE_FACEBOOK_FONT_DESC" >
 		           <option value=""></option>
 		            <option value="arial">arial</option>
 		            <option value="lucida grande">lucida grande</option>
@@ -127,8 +131,8 @@
 		            <option value="trebuchet ms">trebuchet ms</option>
 		            <option value="verdana">verdana</option>
 		        </field>
-				<field name="facebookLikeWidth" type="text" default="90" label="Facebook Like Width" description="Enter the width of your Facebook Like button." />
-                <field name="fbLocale" type="list" default="en_US" label="Language" description="A list with locations and language for the button. Default location - English [en_US].">
+				<field name="facebookLikeWidth" type="text" default="90" label="MOD_ITPSHARE_FACEBOOK_WIDTH" description="MOD_ITPSHARE_FACEBOOK_WIDTH_DESC" />
+                <field name="fbLocale" type="list" default="en_US" label="MOD_ITPSHARE_LANGUAGE" description="MOD_ITPSHARE_LANGUAGE_DESC">
                     <option value="af_ZA">Afrikaans</option>
                     <option value="ar_AR">Arabic</option>
                     <option value="ay_BO">Aymara</option>
@@ -237,24 +241,12 @@
                     <option value="zh_TW">Traditional Chinese (Taiwan)</option>
                     <option value="zu_ZA">Zulu</option>
                 </field>
-				<field name="spacer4" type="spacer" class="text" label="############# DIGG SETTINGS #############" />
-				<field name="diggButton" type="radio" default="0" label="Digg Button" description="Show or hide Digg buttons." >
-				   <option value="0">Hide</option>
-				   <option value="1">Show</option>
-				</field>
-				<field name="diggType" type="list" default="DiggCompact" label="Digg Type" description="The type of your Digg button." >
-				   <option value="DiggWide">Wide</option>
-				   <option value="DiggMedium">Medium</option>
-				   <option value="DiggCompact">Compact</option>
-				   <option value="DiggIcon">Icon</option>
-				</field>
-				<field name="diggTopic" type="text" default="90" label="Digg Media and Topic" description="Use this option to set the media type and topic for unsubmitted stories. Media type and topic are set using the rev attribute of the 'a' tag. You can use the following topics:business, enterntainment, gaming, lifestyle, offbeat, politics, science, technology, world_news." />
-				<field name="spacer5" type="spacer" class="text" label="############# STUMBLEUPON SETTINGS #############" />
-				<field name="stumbleButton" type="radio" default="0" label="SumbpleUpon Button" description="Show or hide StubmpleUpon button." >
+				<field name="spacer4" type="spacer" class="text" label="MOD_ITPSHARE_STUMBLEUPON_SETTINGS" />
+				<field name="stumbleButton" type="radio" default="0" label="MOD_ITPSHARE_STUMBLEUPON_BUTTON" description="MOD_ITPSHARE_STUMBLEUPON_BUTTON_DESC" >
 				   <option value="0">Hide</option>
 				   <option value="1">Show</option>
 				</field>  
-				<field name="stumbleType" type="list" default="1" label="StumbleUpon Type" description="The type of your StumbleUpon button." >
+				<field name="stumbleType" type="list" default="1" label="MOD_ITPSHARE_STUMBLEUPON_TYPE" description="MOD_ITPSHARE_STUMBLEUPON_TYPE_DESC" >
 				   <option value="1">Style 1</option>
 				   <option value="2">Style 2</option>
 				   <option value="3">Style 3</option>
@@ -263,32 +255,23 @@
 				   <option value="6">Style 6</option>
 				</field>  
 				
-				<field name="spacer6" type="spacer" class="text" label="############# LINKEDIN SETTINGS #############" />
-				<field name="linkedInButton" type="radio" default="0" label="LinkedIn Button" description="Show or hide LinkedIn button." >
-				   <option value="0">Hide</option>
-				   <option value="1">Show</option>
+				<field name="spacer5" type="spacer" class="text" label="MOD_ITPSHARE_LINKEDIN_SETTINGS" />
+				<field name="linkedInButton" type="radio" default="0" label="MOD_ITPSHARE_LINKEDIN_BUTTON" description="MOD_ITPSHARE_LINKEDIN_BUTTON_DESC" >
+				   <option value="0">JHIDE</option>
+				   <option value="1">JSHOW</option>
 				</field>
-				<field name="linkedInType" type="list" default="right" label="LinkedIn Type" description="The type of your LinkedIn button." >
+				<field name="linkedInType" type="list" default="right" label="MOD_ITPSHARE_LINKEDIN_TYPE" description="MOD_ITPSHARE_LINKEDIN_TYPE_DESC" >
 				   <option value="none">Counter None</option>
 				   <option value="top">Counter Top</option>
 				   <option value="right">Counter Right</option>
 				</field>  
-                
-				<field name="spacer7" type="spacer" class="text" label="############# RETWEETME SETTINGS #############" />
-				<field name="retweetmeButton" type="radio" default="0" label="ReTweetMe Button" description="Show or hide ReTweetMe button." >
-				   <option value="0">Hide</option>
-				   <option value="1">Show</option>
-				</field>
-				<field name="retweetmeType" type="list" default="compact" label="ReTweetMe Button Style" description="Choose a ReTweetMe button style." >
-				   <option value="compact">Compact</option>
-				   <option value="normal">Normal</option>
-				</field>
-				<field name="spacer8" type="spacer" class="text" label="############# REDDIT SETTINGS #############" />
-                <field name="redditButton" type="radio" default="0" label="Reddit Button" description="Show or hide Reddit button." >
-                   <option value="0">Hide</option>
-                   <option value="1">Show</option>
+				
+				<field name="spacer7" type="spacer" class="text" label="MOD_ITPSHARE_REDDIT_SETTINGS" />
+                <field name="redditButton" type="radio" default="0" label="MOD_ITPSHARE_REDDIT_BUTTON" description="MOD_ITPSHARE_REDDIT_BUTTON_DESC" >
+                   <option value="0">JHIDE</option>
+                   <option value="1">JSHOW</option>
                 </field>
-                <field name="redditType" type="list" default="0" label="Reddit Button Style" description="Choose a Reddit button style." >
+                <field name="redditType" type="list" default="0" label="MOD_ITPSHARE_REDDIT_STYLE" description="MOD_ITPSHARE_REDDIT_STYLE_DESC" >
                    <option value="0">Button 1</option>
                    <option value="1">Button 2</option>
                    <option value="2">Button 3</option>
@@ -313,36 +296,36 @@
                    <option value="21">Button 22</option>
                    <option value="22">Button 23</option>
                 </field>
-                <field name="redditBgColor" type="text" default="" label="Reddit Background Colour" description="The color definition of the button background. Example: FFFFFF " />
-                <field name="redditBorderColor" type="text" default="" label="Reddit Border Colour" description="It is the color definition of the button border. Example: FFFFFF " />
-                <field name="redditNewTab" type="radio" default="1" label="Open in new tab" description="Continue to the sharing in a new tab." >
-                   <option value="0">No</option>
-                   <option value="1">Yes</option>
+                <field name="redditBgColor" type="text" default="" label="MOD_ITPSHARE_REDDIT_BG_COLOR" description="MOD_ITPSHARE_REDDIT_BG_COLOR_DESC" />
+                <field name="redditBorderColor" type="text" default="" label="MOD_ITPSHARE_REDDIT_BORDER_COLOR" description="MOD_ITPSHARE_REDDIT_BORDER_COLOR_DESC" />
+                <field name="redditNewTab" type="radio" default="1" label="MOD_ITPSHARE_REDDIT_NEW_TAB" description="MOD_ITPSHARE_REDDIT_NEW_TAB_DESC" >
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
 				
-				<field name="spacer9" type="spacer" class="text" label="############# GOOGLE PLUS ONE SETTINGS #############" />
-                <field name="plusButton" type="radio" default="0" label="Google Plus One" description="Show or hide Plus One button." >
-                   <option value="0">Hide</option>
-                   <option value="1">Show</option>
+				<field name="spacer8" type="spacer" class="text" label="MOD_ITPSHARE_GOOGLE_ONE_SETTINGS" />
+                <field name="plusButton" type="radio" default="0" label="MOD_ITPSHARE_GOOGLE_ONE_BUTTON" description="MOD_ITPSHARE_GOOGLE_ONE_BUTTON_DESC" >
+                   <option value="0">JHIDE</option>
+                   <option value="1">JSHOW</option>
                 </field>
-                <field name="plusRenderer" type="list" default="0" label="Google Plus Renderer" description="Select the way of rendering." >
+                <field name="plusRenderer" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_ONE_RENDERER" description="MOD_ITPSHARE_GOOGLE_ONE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
                    <option value="1">Standart</option>
                 </field>
-                <field name="plusType" type="list" default="medium" label="Plus One Button Style" description="Select a Plus One button style." >
+                <field name="plusType" type="list" default="medium" label="MOD_ITPSHARE_GOOGLE_ONE_STYLE" description="MOD_ITPSHARE_GOOGLE_ONE_STYLE_DESC" >
                    <option value="small">Small (15px)</option>
                    <option value="standart">Standard (24px)</option>
                    <option value="medium">Medium (20px)</option>
                    <option value="tall">Tall (60px)</option>
                 </field>
                 
-                <field name="plusAnnotation" type="list" default="" label="Plus One Annotation" description="Select a Plus One button annotation." >
+                <field name="plusAnnotation" type="list" default="" label="MOD_ITPSHARE_GOOGLE_ONE_ANNOTATION" description="MOD_ITPSHARE_GOOGLE_ONE_ANNOTATION_DESC" >
                    <option value="">Bubble</option>
                    <option value="inline">Inline</option>
                    <option value="none">None</option>
                 </field>
                 
-                <field name="plusLocale" type="list" default="en" label="Plus One Language" description="Choose a Plus One language." >
+                <field name="plusLocale" type="list" default="en" label="MOD_ITPSHARE_LANGUAGE" description="MOD_ITPSHARE_LANGUAGE_DESC" >
                     <option value="ar">Arabic</option>
                     <option value="bn">Bengali</option>
                     <option value="bg">Bulgarian</option>
@@ -404,52 +387,52 @@
                     <option value="vi">Vietnamese</option>
                 </field>
                 
-                <field name="spacer10" type="spacer" class="text" label="############# PINTEREST SETTINGS #############" />
-                <field name="pinterestButton" type="radio" default="0" label="Pinterest Button" description="Show or hide Pinterest button." >
-                   <option value="0">Hide</option>
-                   <option value="1">Show</option>
+                <field name="spacer9" type="spacer" class="text" label="MOD_ITPSHARE_PINTEREST_SETTINGS" />
+                <field name="pinterestButton" type="radio" default="0" label="MOD_ITPSHARE_PINTEREST_BUTTON" description="MOD_ITPSHARE_PINTEREST_BUTTON_DESC" >
+                   <option value="0">JHIDE</option>
+                   <option value="1">JSHOW</option>
                 </field>
-                <field name="pinterestType" type="list" default="horizontal" label="Pinterest Type" description="The type of the button." >
-                   <option value="horizontal">Horizontal</option>
-                   <option value="vertical">Vertical</option>
-                   <option value="none">None</option>
+                <field name="pinterestType" type="list" default="horizontal" label="MOD_ITPSHARE_PINTEREST_TYPE" description="MOD_ITPSHARE_PINTEREST_TYPE_DESC" >
+                   <option value="none">MOD_ITPSHARE_NONE</option>
+                   <option value="horizontal">MOD_ITPSHARE_HORIZONTAL</option>
+                   <option value="vertical">MOD_ITPSHARE_VERTICAL</option>
                 </field>
                 
-                <field name="spacer11" type="spacer" class="text" label="############# BUFFER SETTINGS #############" />
-                <field name="bufferButton" type="radio" default="0" label="Buffer Button" description="Show or hide BufferApp.com buttons." >
-                   <option value="0">Hide</option>
-                   <option value="1">Show</option>
+                <field name="spacer10" type="spacer" class="text" label="MOD_ITPSHARE_BUFFER_SETTINGS" />
+                <field name="bufferButton" type="radio" default="0" label="MOD_ITPSHARE_BUFFER_BUTTON" description="MOD_ITPSHARE_BUFFER_BUTTON_DESC" >
+                   <option value="0">JHIDE</option>
+                   <option value="1">JSHOW</option>
                 </field>
-                <field name="bufferType" type="list" default="horizontal" label="Buffer Type" description="The type of the button." >
-                   <option value="horizontal">Horizontal</option>
-                   <option value="vertical">Vertical</option>
-                   <option value="none">None</option>
+                <field name="bufferType" type="list" default="horizontal" label="MOD_ITPSHARE_BUFFER_TYPE" description="MOD_ITPSHARE_BUFFER_TYPE_DESC" >
+                   <option value="none">MOD_ITPSHARE_NONE</option>
+                   <option value="horizontal">MOD_ITPSHARE_HORIZONTAL</option>
+                   <option value="vertical">MOD_ITPSHARE_VERTICAL</option>
                 </field>
-                <field name="bufferTwitterName" type="text" default="" size="80" label="Twitter Username" description="Enter the name of your twitter account you want to be mentioned." />
+                <field name="bufferTwitterName" type="text" default="" size="80" label="MOD_ITPSHARE_BUFFER_USERNAME" description="MOD_ITPSHARE_BUFFER_USERNAME_DESC" />
                             
-                <field name="spacer12" type="spacer" class="text" label="############# GOOGLE SHARE SETTINGS #############" />
-                <field name="gsButton" type="radio" default="0" label="Google Share Button" description="Show or hide Google Share button." >
-                   <option value="0">Hide</option>
-                   <option value="1">Show</option>
+                <field name="spacer11" type="spacer" class="text" label="MOD_ITPSHARE_GOOGLE_SHARE_SETTINGS" />
+                <field name="gsButton" type="radio" default="0" label="MOD_ITPSHARE_GOOGLE_SHARE_BUTTON" description="MOD_ITPSHARE_GOOGLE_SHARE_BUTTON" >
+                   <option value="0">JHIDE</option>
+                   <option value="1">JSHOW</option>
                 </field>
-                <field name="gsRenderer" type="list" default="0" label="Google Share Renderer" description="Select the way of rendering." >
+                <field name="gsRenderer" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_SHARE_RENDERER" description="MOD_ITPSHARE_GOOGLE_SHARE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
                    <option value="1">Standart</option>
                 </field>
-                <field name="gsType" type="list" default="0" label="Google Share Style" description="Select a Google Share button style." >
+                <field name="gsType" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_SHARE_STYLE" description="MOD_ITPSHARE_GOOGLE_SHARE_STYLE_DESC" >
                    <option value="15">Small (15px)</option>
                    <option value="0">Standard</option>
                    <option value="24">Large (20px)</option>
                 </field>
                 
-                <field name="gsAnnotation" type="list" default="bubble" label="Google Share Annotation" description="Select a Google Share button annotation." >
+                <field name="gsAnnotation" type="list" default="bubble" label="MOD_ITPSHARE_GOOGLE_SHARE_ANNOTATION" description="MOD_ITPSHARE_GOOGLE_SHARE_ANNOTATION_DESC" >
                    <option value="bubble">Bubble (horizontal)</option>
                    <option value="vertical-bubble">Bubble (vertical)</option>
                    <option value="inline">Inline</option>
                    <option value="none">None</option>
                 </field>
                 
-                <field name="gsLocale" type="list" default="en" label="Google Share Language" description="Choose a Google Share language." >
+                <field name="gsLocale" type="list" default="en" label="MOD_ITPSHARE_LANGUAGE" description="MOD_ITPSHARE_LANGUAGE_DESC" >
                     <option value="ar">Arabic</option>
                     <option value="bn">Bengali</option>
                     <option value="bg">Bulgarian</option>
@@ -527,13 +510,13 @@
 				<field name="cache_time" type="text" default="900"
 					label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
 					
-				<field name="spacer12" type="spacer" class="text" label="############# FACEBOOK LIKE ADVANCED SETTINGS #############" />
-				<field name="facebookLikeAppId" type="text" default="" label="Facebook App ID" description="Enter the ID of the your domain name. For more information read the documentation." />
-                <field name="facebookLikeSend" type="list" default="0" label="Facebook Send Buttons" description="Specifies whether to include a 'Send button' with the Like button. This only works with the XFBML version." >
+				<field name="spacer12" type="spacer" class="text" label="MOD_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS" />
+				<field name="facebookLikeAppId" type="text" default="" label="MOD_ITPSHARE_FACEBOOK_APP_ID" description="MOD_ITPSHARE_FACEBOOK_APP_ID_DESC" />
+                <field name="facebookLikeSend" type="list" default="0" label="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" >
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
-			    <field name="facebookRootDiv" type="radio" default="1" label="Facebook Root Div" description="Put a FB root div element into the page code." >
+			    <field name="facebookRootDiv" type="radio" default="1" label="MOD_ITPSHARE_FACEBOOK_ROOT" description="MOD_ITPSHARE_FACEBOOK_ROOT_DESC" >
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                  </field>
@@ -542,56 +525,64 @@
                     <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer13" type="spacer" class="text" label="############# TUMBLR ADVANCED SETTINGS #############" />
-                <field name="loadTumblrJsLib" type="radio" default="1" label="Load Tumblr JS library" description="Pass loading the Tumblr JavaScript library 'share.js'. Thus avoiding repeated loading library, if you are using other Tumblr widgets. Accelerating the speed of the site and avoid conflicts between the Tumblr widgets.">
+                <field name="spacer13" type="spacer" class="text" label="MOD_ITPSHARE_TUMBLR_ADVANCED_SETTINGS" />
+                <field name="loadTumblrJsLib" type="radio" default="1" label="MOD_ITPSHARE_TUMBLR_LOAD_JS" description="MOD_ITPSHARE_TUMBLR_LOAD_JS_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer14" type="spacer" class="text" label="############# DIGG ADVANCED SETTINGS #############" />
-                <field name="loadDiggJsLib" type="radio" default="1" label="Load Digg JS library" description="Pass loading the Digg JavaScript library 'buttons.js'. Thus avoiding repeated loading library, if you are using other Digg widgets. Accelerating the speed of the site and avoid conflicts between the Digg widgets.">
+                <field name="spacer14" type="spacer" class="text" label="MOD_ITPSHARE_TWITTER_ADVANCED_SETTINGS" />
+                <field name="load_twitter_library" type="radio" default="1" label="MOD_ITPSHARE_TWITTER_LOAD_LIBRARY" description="MOD_ITPSHARE_TWITTER_LOAD_LIBRARY_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer15" type="spacer" class="text" label="############# GOOGLE PLUS ADVANCED SETTINGS #############" />
-                <field name="loadGoogleJsLib" type="radio" default="1" label="Load Google JS library" description="Pass loading the Google JavaScript library. Thus avoiding repeated loading library, if you are using other Google widgets. Accelerating the speed of the site and avoid conflicts between the Google widgets.">
+                <field name="spacer15" type="spacer" class="text" label="MOD_ITPSHARE_LINKEDIN_ADVANCED_SETTINGS" />
+                <field name="load_linkedin_library" type="radio" default="1" label="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer16" type="spacer" class="text" label="############# PINTEREST ADVANCED SETTINGS #############" />
-                <field name="loadPinterestJsLib" type="radio" default="1" label="Load Pinterest JS library" description="Pass loading the Pinterest JavaScript library. Thus avoiding repeated loading library, if you are using other Google Plus widgets. Accelerating the speed of the site and avoid conflicts between the Pinterest widgets.">
+                <field name="spacer16" type="spacer" class="text" label="MOD_ITPSHARE_GOOGLE_SHARE_ADVANCED_SETTINGS" />
+                <field name="loadGoogleJsLib" type="radio" default="1" label="MOD_ITPSHARE_GOOGLE_LOAD_JS" description="MOD_ITPSHARE_GOOGLE_LOAD_JS_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer17" type="spacer" class="text" label="############# ITPShare SETTINGS #############" />
-                <field name="loadCss" type="radio" default="1" label="Load style.css" description="The style.css is a file that conations button position and some styles of the ReTweetMe button. You can disable the file loading if you have your own styles.">
+                <field name="spacer17" type="spacer" class="text" label="MOD_ITPSHARE_PINTEREST_ADVANCED_SETTINGS" />
+                <field name="loadPinterestJsLib" type="radio" default="1" label="MOD_ITPSHARE_PINTEREST_JS" description="MOD_ITPSHARE_PINTEREST_LOAD_JS_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
-                <field name="dynamicLocale" type="radio" default="0" label="Auto language" description="If you set 'Yes' the plugin will take Joomla! locale settings automatically.">
-                     <option value="0">No</option>
-                     <option value="1">Yes</option>
+                
+                <field name="spacer18" type="spacer" class="text" label="MOD_ITPSHARE_ITPSHARE_ADVANCED_SETTINGS" />
+                <field name="loadCss" type="radio" default="1" label="MOD_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS" description="MOD_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="dynamicLocale" type="radio" default="0" label="MOD_ITPSHARE_ITPSHARE_AUTO_LANGUAGE" description="MOD_ITPSHARE_ITPSHARE_AUTO_LANGUAGE_DESC">
+                     <option value="0">JNO</option>
+                     <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer18" type="spacer" class="text" label="############# SHORTENER URL SERVICES SETTINGS #############"  />
-                <field name="sService" type="list" default="" label="Shortener service" description="You can select a shortener URL service. To work properly, a PHP option 'allow_url_fopen' must be enabled. You must enable PHP curl for Google shortener serice." >
-                   <option value="">None</option>
+                <field name="spacer19" type="spacer" class="text" label="MOD_ITPSHARE_SHORTENER_SETTINGS"  />
+                <field name="shortener_service" type="list" default="" label="MOD_ITPSHARE_SHORTENER_SERVICE" description="MOD_ITPSHARE_SHORTENER_SERVICE_DESC" >
+                   <option value="">MOD_ITPSHARE_NONE</option>
+                   <option value="google">goo.gl</option>
                    <option value="bitly">bit.ly</option>
-                   <option value="tinycc">tiny.cc</option>
+                   <option value="bitlycom">bitly.com</option>
                    <option value="jmp">j.mp</option>
+                   <option value="tinycc">tiny.cc</option>
                 </field>
-                <field name="sLogin" type="text" default="" label="Login" description="Username for the shortener URL service."/>
-                <field name="sApiKey" type="text" default="" size="80" label="API key" description="An API key for the shortener URL serivce."/>
+                <field name="shortener_login" type="text" default="" label="MOD_ITPSHARE_LOGIN" description="MOD_ITPSHARE_LOGIN_DESC"/>
+                <field name="shortener_api_key" type="text" default="" size="80" label="MOD_ITPSHARE_API_KEY" description="MOD_ITPSHARE_API_KEY_DESC"/>
                 
-                <field name="spacer19" type="spacer" class="text" label="############# ADDITIONAL BUTTONS #############" />
-		        <field name="ebuttons1" type="textarea" default="" label="Custom Button code 1" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons2" type="textarea" default="" label="Custom Button code 2" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons3" type="textarea" default="" label="Custom Button code 3" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons4" type="textarea" default="" label="Custom Button code 4" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
-                <field name="ebuttons5" type="textarea" default="" label="Custom Button code 5" description="Insert an additional button code that will be included. If you need to specify a URL or title, use {URL} and {TITLE} for that." cols="50" rows="10" filter="raw" />
+                <field name="spacer20" type="spacer" class="text" label="MOD_ITPSHARE_ADDITIONAL_BUTTONS" />
+		        <field name="ebuttons1" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons2" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons3" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons4" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons5" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
 			</fieldset>
 		</fields>
 	</config>

@@ -1,10 +1,16 @@
 ITPShare Module for Joomla! 
 ==========================
-( Version v2.2 )
+( Version v2.3 )
 --------------------------
 
 Changelog
 ---------
+v2.3
+----
+* Added some new Twitter languages
+* Removed the Digg and ReTwittMe buttons. Those services do not work anymore.
+* Updated the code of buttons SumbpleUpon, Facebook, Pinterest
+* Improved language
 
 v2.2
 ----

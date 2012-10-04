@@ -1,7 +1,7 @@
 <?php
 /**
  * @package      ITPrism Modules
- * @subpackage   Social
+ * @subpackage   ITPShare
  * @author       Todor Iliev
  * @copyright    Copyright (C) 2010 Todor Iliev <todor@itprism.com>. All rights reserved.
  * @license      http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -25,25 +25,28 @@ class ItpShareHelper{
      */
     public static function getShortUrl($link, $params){
         
-        // Include the syndicate functions only once
-		JLoader::register("ItpShortUrlSocialButtons", dirname(__FILE__).'/itpshorturlsocialbuttons.php');
-
-        $options = array(
-            "login"     => $params->get("sLogin"),
-            "apiKey"    => $params->get("sApiKey"),
-            "service"   => $params->get("sService"),
+		JLoader::register("ItpShareModuleShortUrl", dirname(__FILE__).DIRECTORY_SEPARATOR."shorturl.php");
+        
+		$options = array(
+            "login"     => $params->get("shortener_login"),
+            "api_key"   => $params->get("shortener_api_key"),
+            "service"   => $params->get("shortener_service"),
         );
-        $shortUrl 	= new ItpShortUrlSocialButtons($link,$options);
-        $shortLink  = $shortUrl->getUrl();
+        
+        $shortUrl  = new ItpShareModuleShortUrl($link, $options);
+        $shortLink = $shortUrl->getUrl();
         
         if(!$shortLink) {
-            $loggerOptions = array();
-        	jimport('joomla.log.loggers.formattedtext');
-        	$message   = $shortUrl->getError();
-            $entry     = new JLogEntry($message);
-	        $logger    = new JLoggerFormattedText($loggerOptions);
-	        $logger->addEntry($entry, JLog::ALERT);
-	        $shortLink = "";
+            // Add logger
+            JLog::addLogger(
+                array(
+                    'text_file' => 'error.php',
+                 )
+            );
+            
+            JLog::add($shortUrl->getError(), JLog::ERROR);
+        } else {
+            $link = $shortLink;
         }
         
         return $shortLink;
@@ -62,7 +65,7 @@ class ItpShareHelper{
             $extraButton = $params->get($btnName, "");
             if(!empty($extraButton)) {
                 $extraButton = str_replace("{URL}", $url,$extraButton);
-                $extraButton = str_replace("{TITLE}", $title,$extraButton);
+                $extraButton = str_replace("{TITLE}", $title, $extraButton);
                 $html  .= $extraButton;
             }
         }
@@ -75,7 +78,7 @@ class ItpShareHelper{
         $html = "";
         if($params->get("twitterButton")) {
             
-        	/**** Get locale code ***/
+        	// Get locale code
             if(!$params->get("dynamicLocale")) {
                 $locale   = $params->get("twitterLanguage", "en");
             } else {
@@ -87,21 +90,24 @@ class ItpShareHelper{
             
             $html = '
              	<div class="itp-share-tw">
-                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $locale . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>
-                	<script type="text/javascript">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-            	</div>
-            ';
+                	<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $url . '" data-text="' . $title . '" data-via="' . $params->get("twitterName") . '" data-lang="' . $locale . '" data-size="' . $params->get("twitterSize") . '" data-related="' . $params->get("twitterRecommend") . '" data-hashtags="' . $params->get("twitterHashtag") . '" data-count="' . $params->get("twitterCounter") . '">Tweet</a>';
+            
+            if($params->get("load_twitter_library", 1)) {
+                $html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+            }
+            
+            $html .='</div>';
         }
          
         return $html;
     }
     
-    public static function getGooglePlusOne($params, $url, $title){
+    public static function getGooglePlusOne($params, $url){
         
         $html = "";
         if($params->get("plusButton")) {
             
-        	/**** Get locale code ***/
+        	// Get locale code
             if(!$params->get("dynamicLocale")) {
                 $locale   = $params->get("plusLocale", "en");
             } else {
@@ -184,12 +190,12 @@ class ItpShareHelper{
     }
     
     
-    public static function getFacebookLike($params, $url, $title){
+    public static function getFacebookLike($params, $url){
         
         $html = "";
         if($params->get("facebookLikeButton")) {
             
-        	/**** Get locale code ***/
+        	// Get locale code
             if(!$params->get("dynamicLocale")) {
                 $locale   = $params->get("fbLocale", "en_US");
             } else {
@@ -199,10 +205,10 @@ class ItpShareHelper{
                 $locale   = JArrayHelper::getValue($locales, "facebook", "en_US");
             }
             
-            /**** Faces ***/
+            // Faces 
             $faces = (!$params->get("facebookLikeFaces")) ? "false" : "true";
             
-            /**** Layout Styles ***/
+            // Layout Styles
             $layout = $params->get("facebookLikeType", "button_count");
             if(strcmp("box_count", $layout)==0){
                 $height = "80";
@@ -210,7 +216,7 @@ class ItpShareHelper{
                 $height = "25";
             }
             
-            /**** Generate code ***/
+            // Generate code
             $html = '<div class="itp-share-fbl">';
             
             switch($params->get("facebookLikeRenderer")) {
@@ -238,7 +244,7 @@ class ItpShareHelper{
         
         $html = '
             <div class="itp-share-fbl">
-            <iframe src="http://www.facebook.com/plugins/like.php?';
+            <iframe src="//www.facebook.com/plugins/like.php?';
             
             if($params->get("facebookLikeAppId")) {
                 $html .= 'app_id=' . $params->get("facebookLikeAppId"). '&amp;';
@@ -267,11 +273,20 @@ class ItpShareHelper{
         }
         
        if($params->get("facebookLoadJsLib", 1)) {
-            $html .= '<script type="text/javascript" src="http://connect.facebook.net/' . $fbLocale . '/all.js#xfbml=1';
-            if($params->get("facebookLikeAppId")){
-                $html .= '&amp;appId=' . $params->get("facebookLikeAppId"); 
+           $appId = "";
+           if($params->get("facebookLikeAppId")){
+                $appId = '&amp;appId=' . $params->get("facebookLikeAppId"); 
             }
-            $html .= '"></script>';
+            
+           $html .= ' 
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/' . $fbLocale . '/all.js#xfbml=1'.$appId.'";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, \'script\', \'facebook-jssdk\'));</script>';
+           
         }
         
         $html .= '
@@ -301,22 +316,23 @@ class ItpShareHelper{
             $html .= '<div id="fb-root"></div>';
         }
                 
-       if($params->get("facebookLoadJsLib", 1)) {
-                   
-       $html .='
-<script type="text/javascript">(function(d, s, id) {
+        if($params->get("facebookLoadJsLib", 1)) {
+           $appId = "";
+           if($params->get("facebookLikeAppId")){
+                $appId = '&amp;appId=' . $params->get("facebookLikeAppId"); 
+            }
+            
+           $html .= ' 
+<script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/' . $fbLocale . '/all.js#xfbml=1';
-               if($params->get("facebookLikeAppId")){
-                    $html .= '&amp;appId=' . $params->get("facebookLikeAppId"); 
-                }
-$html .= '"
+  js.src = "//connect.facebook.net/' . $fbLocale . '/all.js#xfbml=1'.$appId.'";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, "script", "facebook-jssdk"));</script>
-                   ';
-                }
+}(document, \'script\', \'facebook-jssdk\'));</script>';
+           
+        }
+        
         $html .= '
                 <div 
                 class="fb-like" 
@@ -339,82 +355,45 @@ $html .= '"
         
     }
     
-    public static function getDigg($params, $url, $title){
-        $title = html_entity_decode($title,ENT_QUOTES, "UTF-8");
-        
-        $html = "";
-        if($params->get("diggButton")) {
-            
-            $html .= '<div class="itp-share-digg">';
-            
-            // Load the JS library
-            if($params->get("loadDiggJsLib")) {
-                $html .= '<script type="text/javascript">
-(function() {
-var s = document.createElement(\'SCRIPT\'), s1 = document.getElementsByTagName(\'SCRIPT\')[0];
-s.type = \'text/javascript\';
-s.async = true;
-s.src = \'http://widgets.digg.com/buttons.js\';
-s1.parentNode.insertBefore(s, s1);
-})();
-</script>';
-            }
-            
-$html .= '<a 
-class="DiggThisButton '.$params->get("diggType","DiggCompact") . '"
-href="http://digg.com/submit?url=' . rawurlencode($url) . '&amp;title=' . rawurlencode($title) . '" rev="'.$params->get("diggTopic").'" >
-</a>';
-            $html .= '</div>';
-        }
-        
-        return $html;
-    }
-    
-    public static function getStumbpleUpon($params, $url, $title){
+    public static function getStumbpleUpon($params, $url){
         
         $html = "";
         if($params->get("stumbleButton")) {
             
-            $html = '
-            <div class="itp-share-su">
-            <script type="text/javascript" src="http://www.stumbleupon.com/hostedbadge.php?s=' . $params->get("stumbleType",1). '&r=' . rawurlencode($url) . '"></script>
+            $html = "
+            <div class=\"itp-share-su\">
+            <su:badge layout='" . $params->get("stumbleType", 1). "'></su:badge>
             </div>
-            ';
+            
+            <script>
+          (function() {
+            var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;
+            li.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + '//platform.stumbleupon.com/1/widgets.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);
+          })();
+        </script>
+            ";
         }
         
         return $html;
     }
     
-    public static function getLinkedIn($params, $url, $title){
+    public static function getLinkedIn($params, $url){
         
         $html = "";
         if($params->get("linkedInButton")) {
             
             $html = '
-            <div class="itp-share-lin">
-            <script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="IN/Share" data-url="' . $url . '" data-counter="' . $params->get("linkedInType",'right'). '"></script>
+            <div class="itp-share-lin">';
+            
+            if($params->get("load_linkedin_library", 1)) {
+                $html .= '<script src="//platform.linkedin.com/in.js"></script>';
+            }
+            
+            $html .= '<script type="IN/Share" data-url="' . $url . '" data-counter="' . $params->get("linkedInType", 'right'). '"></script>
             </div>
             ';
 
-        }
-        
-        return $html;
-    }
-    
-    public static function getReTweetMeMe($params, $url, $title){
-        
-        $html = "";
-        if($params->get("retweetmeButton")) {
-            
-            $html = '
-            <div class="itp-share-retweetme">
-            <script type="text/javascript">
-tweetmeme_url = "' . $url . '";
-tweetmeme_style = "' . $params->get("retweetmeType") . '";
-tweetmeme_source = "' . $params->get("twitterName") . '";
-</script>
-<script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script>
-            </div>';
         }
         
         return $html;
@@ -432,7 +411,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
             $jsButtons = array(1,2,3);
             
             if(in_array($redditType,$jsButtons) ) {
-                $html .='<script type="text/javascript">
+                $html .='<script>
   reddit_url = "'. $url . '";
   reddit_title = "'.$title.'";
   reddit_bgcolor = "'.$params->get("redditBgColor").'";
@@ -443,75 +422,74 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
                 switch($redditType) {
                     
                     case 1:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/static/button/button1.js"></script>';
                         break;
-
                     case 2:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button2.js"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/static/button/button2.js"></script>';
                         break;
                     case 3:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/static/button/button3.js"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/static/button/button3.js"></script>';
                         break;
                     case 4:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=0"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=0"></script>';
                         break;
                     case 5:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=1"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=1"></script>';
                         break;
                     case 6:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=2"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=2"></script>';
                         break;
                     case 7:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=3"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=3"></script>';
                         break;
                     case 8:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=4"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=4"></script>';
                         break;
                     case 9:
-                        $html .='<script type="text/javascript" src="http://www.reddit.com/buttonlite.js?i=5"></script>';
+                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=5"></script>';
                         break;
                     case 10:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit6.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit6.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;
                     case 11:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit1.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit1.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 12:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit2.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit2.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 13:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit3.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit3.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 14:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit4.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit4.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 15:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit5.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit5.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 16:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit8.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit8.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 17:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit9.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit9.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 18:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit10.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit10.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 19:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit11.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit11.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 20:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit12.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit12.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 21:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit13.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit13.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                     case 22:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit14.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit14.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;   
                                         
                     default:
-                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url=' . $url . '\'; return false"> <img src="http://www.reddit.com/static/spreddit7.gif" alt="Submit to reddit" border="0" /> </a>';
+                        $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url=' . $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit7.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
                         break;
                 }
                 
@@ -522,7 +500,7 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
         return $html;
     }
     
-    public static function getTumblr($params, $url, $title){
+    public static function getTumblr($params, $url){
             
         $html = "";
         if($params->get("tumblrButton")) {
@@ -530,36 +508,34 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
             $html .= '<div class="itp-share-tbr">';
             
             if($params->get("loadTumblrJsLib")) {
-                $html .= '<script type="text/javascript" src="http://platform.tumblr.com/v1/share.js"></script>';
+                $html .= '<script src="//platform.tumblr.com/v1/share.js"></script>';
             }
             
             switch($params->get("tumblrType")) {
                 
                 case 1:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'//platform.tumblr.com/v1/share_2.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;
-
                 case 2:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'//platform.tumblr.com/v1/share_3.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;
                 case 3:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'//platform.tumblr.com/v1/share_4.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;
                 case 4:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'//platform.tumblr.com/v1/share_1T.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;
                 case 5:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_2T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:61px; height:20px; background:url(\'//platform.tumblr.com/v1/share_2T.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;
                 case 6:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_3T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:129px; height:20px; background:url(\'//platform.tumblr.com/v1/share_3T.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;
                 case 7:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_4T.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:20px; height:20px; background:url(\'//platform.tumblr.com/v1/share_4T.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;   
-                                    
                 default:
-                    $html .='<a href="http://www.tumblr.com/share" title="Share on Tumblr" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'http://platform.tumblr.com/v1/share_1.png\') top left no-repeat transparent;">Share on Tumblr</a>';
+                    $html .='<a href="http://www.tumblr.com/share" title="'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'" style="display:inline-block; text-indent:-9999px; overflow:hidden; width:81px; height:20px; background:url(\'//platform.tumblr.com/v1/share_1.png\') top left no-repeat transparent;">'.JText::_("MOD_ITPSHARE_SHARE_THUMBLR").'</a>';
                     break;
             }
             
@@ -571,8 +547,6 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
     
     public static function getPinterest($params, $url, $title){
         
-        $title = html_entity_decode($title,ENT_QUOTES, "UTF-8");
-        
         $html = "";
         if($params->get("pinterestButton")) {
             
@@ -580,34 +554,10 @@ tweetmeme_source = "' . $params->get("twitterName") . '";
             
             // Load the JS library
             if($params->get("loadPinterestJsLib")) {
-                $html .= '<!-- Include ONCE for ALL buttons in the page -->
-<script type="text/javascript">
-(function() {
-    window.PinIt = window.PinIt || { loaded:false };
-    if (window.PinIt.loaded) return;
-    window.PinIt.loaded = true;
-    function async_load(){
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.async = true;
-        if (window.location.protocol == "https:")
-            s.src = "https://assets.pinterest.com/js/pinit.js";
-        else
-            s.src = "http://assets.pinterest.com/js/pinit.js";
-        var x = document.getElementsByTagName("script")[0];
-        x.parentNode.insertBefore(s, x);
-    }
-    if (window.attachEvent)
-        window.attachEvent("onload", async_load);
-    else
-        window.addEventListener("load", async_load, false);
-})();
-</script>
-';
+                $html .= '<script src="//assets.pinterest.com/js/pinit.js"></script>';
             }
             
-$html .= '<!-- Customize and include for EACH button in the page -->
-<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType").'">Pin It</a>';
+            $html .= '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType", "horizontal").'"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="'.JText::_("MOD_ITPSHARE_PIN_IT").'" /></a>';
             $html .= '</div>';
         }
         
@@ -618,10 +568,9 @@ $html .= '<!-- Customize and include for EACH button in the page -->
         
         $html = "";
         if($params->get("bufferButton")) {
-            
             $html = '
             <div class="itp-share-buffer">
-            <a href="http://bufferapp.com/add" class="buffer-add-button" data-text="' . $title . '" data-url="'.$url.'" data-count="'.$params->get("bufferType").'" data-via="'.$params->get("bufferTwitterName").'">Buffer</a><script type="text/javascript" src="http://static.bufferapp.com/js/button.js"></script>
+            <a href="http://bufferapp.com/add" class="buffer-add-button" data-text="' . $title . '" data-url="'.$url.'" data-count="'.$params->get("bufferType").'" data-via="'.$params->get("bufferTwitterName").'">Buffer</a><script src="//static.bufferapp.com/js/button.js"></script>
             </div>
             ';
         }
@@ -792,7 +741,7 @@ $html .= '<!-- Customize and include for EACH button in the page -->
         
     }
     
-    public static function getGoogleShare($params, $url, $title){
+    public static function getGoogleShare($params, $url){
         
         $html = "";
         if($params->get("gsButton")) {
