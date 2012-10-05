@@ -8,7 +8,7 @@ Changelog
 v2.3
 ----
 * Added some new Twitter languages
-* Added ablility to use it on 'https'-Domain (SSL)
+* Added ablility to be used on 'https'-Domain (SSL)
 * Removed the Digg and ReTwittMe buttons. Those services do not work anymore.
 * Updated the code of buttons SumbpleUpon, Facebook, Pinterest
 * Improved language
