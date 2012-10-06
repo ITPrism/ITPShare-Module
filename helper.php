@@ -45,16 +45,21 @@ class ItpShareHelper{
             );
             
             JLog::add($shortUrl->getError(), JLog::ERROR);
-        } else {
-            $link = $shortLink;
-        }
+        } 
         
         return $shortLink;
             
     }
     
     /**
-     * Generate a code for the extra buttons
+     * Generate a code for the extra buttons. 
+     * Is also replace indicators {URL} and {TITLE} with that of the article.
+     * 
+     * @param string $title Article Title
+     * @param string $url   Article URL
+     * @param array $params Plugin parameters
+     * 
+     * @return string
      */
     public static function getExtraButtons($params, $url, $title) {
         
@@ -133,7 +138,7 @@ class ItpShareHelper{
             // Load the JavaScript asynchroning
     		if($params->get("loadGoogleJsLib")) {
       
-                $html .= '<script type="text/javascript">';
+                $html .= '<script>';
                 $html .= ' window.___gcfg = {lang: "' . $locale . '"};';
                 
                 $html .= '
@@ -275,8 +280,8 @@ class ItpShareHelper{
        if($params->get("facebookLoadJsLib", 1)) {
            $appId = "";
            if($params->get("facebookLikeAppId")){
-                $appId = '&amp;appId=' . $params->get("facebookLikeAppId"); 
-            }
+               $appId = '&amp;appId=' . $params->get("facebookLikeAppId"); 
+           }
             
            $html .= ' 
 <script>(function(d, s, id) {
@@ -334,15 +339,15 @@ class ItpShareHelper{
         }
         
         $html .= '
-                <div 
-                class="fb-like" 
-                data-href="' . $url . '" 
-                data-send="' . $params->get("facebookLikeSend",0). '" 
-                data-layout="'.$layout.'" 
-                data-width="' . $params->get("facebookLikeWidth","450") . '" 
-                data-show-faces="' . $faces . '" 
-                data-colorscheme="' . $params->get("facebookLikeColor","light") . '" 
-                data-action="' . $params->get("facebookLikeAction",'like') . '"';
+            <div 
+            class="fb-like" 
+            data-href="' . $url . '" 
+            data-send="' . $params->get("facebookLikeSend",0). '" 
+            data-layout="'.$layout.'" 
+            data-width="' . $params->get("facebookLikeWidth","450") . '" 
+            data-show-faces="' . $faces . '" 
+            data-colorscheme="' . $params->get("facebookLikeColor","light") . '" 
+            data-action="' . $params->get("facebookLikeAction",'like') . '"';
                 
                 
         if($params->get("facebookLikeFont")){
@@ -353,29 +358,6 @@ class ItpShareHelper{
         
         return $html;
         
-    }
-    
-    public static function getStumbpleUpon($params, $url){
-        
-        $html = "";
-        if($params->get("stumbleButton")) {
-            
-            $html = "
-            <div class=\"itp-share-su\">
-            <su:badge layout='" . $params->get("stumbleType", 1). "'></su:badge>
-            </div>
-            
-            <script>
-          (function() {
-            var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;
-            li.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + '//platform.stumbleupon.com/1/widgets.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);
-          })();
-        </script>
-            ";
-        }
-        
-        return $html;
     }
     
     public static function getLinkedIn($params, $url){
@@ -422,31 +404,31 @@ class ItpShareHelper{
                 switch($redditType) {
                     
                     case 1:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/static/button/button1.js"></script>';
+                        $html .='<script src="//www.reddit.com/static/button/button1.js"></script>';
                         break;
                     case 2:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/static/button/button2.js"></script>';
+                        $html .='<script src="//www.reddit.com/static/button/button2.js"></script>';
                         break;
                     case 3:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/static/button/button3.js"></script>';
+                        $html .='<script src="//www.reddit.com/static/button/button3.js"></script>';
                         break;
                     case 4:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=0"></script>';
+                        $html .='<script src="//www.reddit.com/buttonlite.js?i=0"></script>';
                         break;
                     case 5:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=1"></script>';
+                        $html .='<script src="//www.reddit.com/buttonlite.js?i=1"></script>';
                         break;
                     case 6:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=2"></script>';
+                        $html .='<script src="//www.reddit.com/buttonlite.js?i=2"></script>';
                         break;
                     case 7:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=3"></script>';
+                        $html .='<script src="//www.reddit.com/buttonlite.js?i=3"></script>';
                         break;
                     case 8:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=4"></script>';
+                        $html .='<script src="//www.reddit.com/buttonlite.js?i=4"></script>';
                         break;
                     case 9:
-                        $html .='<script type="text/javascript" src="//www.reddit.com/buttonlite.js?i=5"></script>';
+                        $html .='<script src="//www.reddit.com/buttonlite.js?i=5"></script>';
                         break;
                     case 10:
                         $html .='<a href="http://www.reddit.com/submit" onclick="window.location = \'http://www.reddit.com/submit?url='. $url . '\'; return false"> <img src="//www.reddit.com/static/spreddit6.gif" alt="'.JText::_("MOD_ITPSHARE_SUBMIT_REDDIT").'" border="0" /> </a>';
@@ -551,14 +533,36 @@ class ItpShareHelper{
         if($params->get("pinterestButton")) {
             
             $html .= '<div class="itp-share-pinterest">';
+            $html .= '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType", "horizontal").'"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="'.JText::_("MOD_ITPSHARE_PIN_IT").'" /></a>';
+            $html .= '</div>';
             
             // Load the JS library
             if($params->get("loadPinterestJsLib")) {
                 $html .= '<script src="//assets.pinterest.com/js/pinit.js"></script>';
             }
+        }
+        
+        return $html;
+    }
+    
+    public static function getStumbpleUpon($params, $url){
+        
+        $html = "";
+        if($params->get("stumbleButton")) {
             
-            $html .= '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" class="pin-it-button" count-layout="'.$params->get("pinterestType", "horizontal").'"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="'.JText::_("MOD_ITPSHARE_PIN_IT").'" /></a>';
-            $html .= '</div>';
+            $html = "
+            <div class=\"itp-share-su\">
+            <su:badge layout='" . $params->get("stumbleType", 1). "'></su:badge>
+            </div>
+            
+            <script>
+          (function() {
+            var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;
+            li.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + '//platform.stumbleupon.com/1/widgets.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);
+          })();
+        </script>
+            ";
         }
         
         return $html;
@@ -746,7 +750,7 @@ class ItpShareHelper{
         $html = "";
         if($params->get("gsButton")) {
             
-        	/**** Get locale code ***/
+        	// Get locale code
             if(!$params->get("dynamicLocale")) {
                 $locale   = $params->get("gsLocale", "en");
             } else {
@@ -772,7 +776,7 @@ class ItpShareHelper{
             // Load the JavaScript asynchroning
         	if($params->get("loadGoogleJsLib")) {
         
-                $html .= '<script type="text/javascript">';
+                $html .= '<script>';
                 $html .= ' window.___gcfg = {lang: "'.$locale.'"}; ';
                 
                 $html .= '
