@@ -511,9 +511,10 @@
                 <field name="shortener_api_key" type="text" default="" size="80" label="MOD_ITPSHARE_API_KEY" description="MOD_ITPSHARE_API_KEY_DESC"/>
             </fieldset>
             
-            <fieldset name="facebook_advanced_settings" label="MOD_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS">
+            <fieldset name="buttons_advanced_settings" label="MOD_ITPSHARE_BUTTONS_ADVANCED_SETTINGS">
+                <field name="spacer12" type="spacer" class="text" label="MOD_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS" />
                 <field name="facebookLikeAppId" type="text" default="" label="MOD_ITPSHARE_FACEBOOK_APP_ID" description="MOD_ITPSHARE_FACEBOOK_APP_ID_DESC" />
-                <field name="facebookLikeSend" type="list" default="0" label="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" >
+                <field name="facebookLikeSend" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" >
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
@@ -525,31 +526,7 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
-            </fieldset>
-            
-            <fieldset name="additional_code" label="MOD_ITPSHARE_ADDITIONAL_BUTTONS">
-                <field name="ebuttons1" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons2" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons3" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons4" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons5" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-            </fieldset>
-            
-			<fieldset name="advanced">
-				<field name="moduleclass_sfx" type="text"
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
-
-				<field name="owncache" type="list" default="1"
-					label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC" >
-					<option value="1">JGLOBAL_USE_GLOBAL</option>
-					<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING
-					</option>
-				</field>
-
-				<field name="cache_time" type="text" default="900"
-					label="COM_MODULES_FIELD_CACHE_TIME_LABEL" description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
-					
+                
                 <field name="spacer13" type="spacer" class="text" label="MOD_ITPSHARE_TUMBLR_ADVANCED_SETTINGS" />
                 <field name="loadTumblrJsLib" type="radio" default="1" label="MOD_ITPSHARE_TUMBLR_LOAD_JS" description="MOD_ITPSHARE_TUMBLR_LOAD_JS_DESC">
                     <option value="0">JNO</option>
@@ -590,6 +567,40 @@
                      <option value="1">JYES</option>
                 </field>
                 
+            </fieldset>
+            
+            <fieldset name="additional_code" label="MOD_ITPSHARE_ADDITIONAL_BUTTONS">
+                <field name="ebuttons1" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons2" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons3" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons4" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons5" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+            </fieldset>
+            
+			<fieldset name="advanced">
+				<field name="moduleclass_sfx" type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+
+				<field
+                    name="cache"
+                    type="list"
+                    default="1"
+                    label="COM_MODULES_FIELD_CACHING_LABEL"
+                    description="COM_MODULES_FIELD_CACHING_DESC">
+                    <option
+                        value="1">JGLOBAL_USE_GLOBAL</option>
+                    <option
+                        value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+                </field>
+                
+                <field
+                    name="cache_time"
+                    type="text"
+                    default="900"
+                    label="COM_MODULES_FIELD_CACHE_TIME_LABEL"
+                    description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
+					
 			</fieldset>
 		</fields>
 	</config>
