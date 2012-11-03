@@ -22,7 +22,7 @@ $doc = JFactory::getDocument();
 
 // Loading style.css
 if($params->get("loadCss")) {
-    $doc->addStyleSheet(JURI::root()."modules/mod_itpshare/style.css");
+    $doc->addStyleSheet("modules/mod_itpshare/style.css");
 }
 
 // URL

@@ -45,6 +45,7 @@ class ItpShareHelper{
             );
             
             JLog::add($shortUrl->getError(), JLog::ERROR);
+            $shortLink = $link;
         } 
         
         return $shortLink;
@@ -82,6 +83,8 @@ class ItpShareHelper{
         
         $html = "";
         if($params->get("twitterButton")) {
+            
+            $title  = htmlentities($title, ENT_QUOTES, "UTF-8");
             
         	// Get locale code
             if(!$params->get("dynamicLocale")) {
@@ -248,12 +251,7 @@ class ItpShareHelper{
     public static function genFacebookLikeIframe($params, $url, $layout, $faces, $height, $fbLocale) {
         
         $html = '
-            <div class="itp-share-fbl">
             <iframe src="//www.facebook.com/plugins/like.php?';
-            
-            if($params->get("facebookLikeAppId")) {
-                $html .= 'app_id=' . $params->get("facebookLikeAppId"). '&amp;';
-            }
             
             $html .= 'href=' . rawurlencode($url) . '&amp;send=' . $params->get("facebookLikeSend",0). '&amp;locale=' . $fbLocale . '&amp;layout=' . $layout . '&amp;show_faces=' . $faces . '&amp;width=' . $params->get("facebookLikeWidth","450") . '&amp;action=' . $params->get("facebookLikeAction",'like') . '&amp;colorscheme=' . $params->get("facebookLikeColor",'light') . '&amp;height='.$height.'';
             if($params->get("facebookLikeFont")){
@@ -263,7 +261,6 @@ class ItpShareHelper{
                 $html .= "&amp;appId=" . $params->get("facebookLikeAppId");
             }
             $html .= '" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:' . $params->get("facebookLikeWidth", "450") . 'px; height:' . $height . 'px;" allowTransparency="true"></iframe>
-            </div>
         ';
             
         return $html;
@@ -315,7 +312,7 @@ class ItpShareHelper{
     
     public static function genFacebookLikeHtml5($params, $url, $layout, $faces, $height, $fbLocale) {
         
-         $html = '';
+        $html = '';
                 
         if($params->get("facebookRootDiv",1)) {
             $html .= '<div id="fb-root"></div>';
@@ -386,6 +383,8 @@ class ItpShareHelper{
         
         $html = "";
         if($params->get("redditButton")) {
+            
+            $title  = htmlentities($title, ENT_QUOTES, "UTF-8");
             
             $html .= '<div class="itp-share-reddit">';
             $redditType = $params->get("redditType");
@@ -572,6 +571,9 @@ class ItpShareHelper{
         
         $html = "";
         if($params->get("bufferButton")) {
+            
+            $title  = htmlentities($title, ENT_QUOTES, "UTF-8");
+            
             $html = '
             <div class="itp-share-buffer">
             <a href="http://bufferapp.com/add" class="buffer-add-button" data-text="' . $title . '" data-url="'.$url.'" data-count="'.$params->get("bufferType").'" data-via="'.$params->get("bufferTwitterName").'">Buffer</a><script src="//static.bufferapp.com/js/button.js"></script>
