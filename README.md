@@ -1,10 +1,15 @@
 ITPShare Module for Joomla! 
 ==========================
-( Version v2.3 )
+( Version v2.4 )
 --------------------------
 
 Changelog
 ---------
+
+v2.4
+----
+* Improved
+
 v2.3
 ----
 * Added some new Twitter languages
