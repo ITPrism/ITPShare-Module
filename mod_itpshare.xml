@@ -511,7 +511,15 @@
                 <field name="shortener_api_key" type="text" default="" size="80" label="MOD_ITPSHARE_API_KEY" description="MOD_ITPSHARE_API_KEY_DESC"/>
             </fieldset>
             
-            <fieldset name="buttons_advanced_settings" label="MOD_ITPSHARE_BUTTONS_ADVANCED_SETTINGS">
+            <fieldset name="additional_code" label="MOD_ITPSHARE_ADDITIONAL_BUTTONS">
+                <field name="ebuttons1" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons2" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons3" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons4" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons5" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
+            </fieldset>
+            
+            <fieldset name="implementation_settings" label="MOD_ITPSOCIALSUBSCRIBE_IMPLEMENTATION_OPTIONS">
                 <field name="spacer12" type="spacer" class="text" label="MOD_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS" />
                 <field name="facebookLikeAppId" type="text" default="" label="MOD_ITPSHARE_FACEBOOK_APP_ID" description="MOD_ITPSHARE_FACEBOOK_APP_ID_DESC" />
                 <field name="facebookLikeSend" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" >
@@ -567,14 +575,6 @@
                      <option value="1">JYES</option>
                 </field>
                 
-            </fieldset>
-            
-            <fieldset name="additional_code" label="MOD_ITPSHARE_ADDITIONAL_BUTTONS">
-                <field name="ebuttons1" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons2" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons3" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons4" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons5" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
             </fieldset>
             
 			<fieldset name="advanced">
