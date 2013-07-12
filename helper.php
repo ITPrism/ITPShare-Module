@@ -553,7 +553,11 @@ class ItpShareHelper{
         $html = "";
         if($params->get("pinterestButton")) {
             
-            $html .= '<div class="itp-share-pinterest">';
+            $booblePosition = $params->get("pinterestType", "beside");
+            
+            $divClass = (strcmp("above", $booblePosition) == 0) ? "itp-share-pinterest-above" : "itp-share-pinterest";
+
+            $html .= '<div class="'.$divClass.'">';
             
             if(strcmp("one", $params->get('pinterestImages', "one")) == 0) {
                 $html .= '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&amp;description=' . rawurlencode($title) . '" data-pin-do="buttonPin" data-pin-config="'.$params->get("pinterestType", "beside").'"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>';
