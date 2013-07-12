@@ -553,9 +553,9 @@ class ItpShareHelper{
         $html = "";
         if($params->get("pinterestButton")) {
             
-            $booblePosition = $params->get("pinterestType", "beside");
+            $bubblePosition = $params->get("pinterestType", "beside");
             
-            $divClass = (strcmp("above", $booblePosition) == 0) ? "itp-share-pinterest-above" : "itp-share-pinterest";
+            $divClass = (strcmp("above", $bubblePosition) == 0) ? "itp-share-pinterest-above" : "itp-share-pinterest";
 
             $html .= '<div class="'.$divClass.'">';
             
