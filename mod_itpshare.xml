@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="2.5" client="site" method="upgrade">
+<extension type="module" version="3.1" client="site" method="upgrade">
 	<name>MOD_ITPSHARE</name>
 	<author>Todor Iliev</author>
 	<creationDate>January, 2011</creationDate>
@@ -7,7 +7,7 @@
 	<license>http://www.gnu.org/copyleft/gpl.html</license>
 	<authorEmail>todor@itprism.com</authorEmail>
 	<authorUrl>http://itprism.com</authorUrl>
-	<version>2.4</version>
+	<version>2.5</version>
 	<description>MOD_ITPSHARE_DESC</description>
 	
 	<languages folder="language">
@@ -30,25 +30,37 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="spacer1" type="spacer" class="text" label="MOD_ITPSHARE_TWITTER_SETTINGS" />
-				<field name="twitterButton" type="radio" default="0" label="MOD_ITPSHARE_TWITTER_BUTTON" description="MOD_ITPSHARE_TWITTER_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-				   <option value="1">JSHOW</option>
-				</field>
-				<field name="twitterName" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_NAME" description="MOD_ITPSHARE_TWITTER_NAME_DESC" />
-				<field name="twitterRecommend" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_RECOMMEND" description="MOD_ITPSHARE_TWITTER_RECOMMEND_DESC" />
+                
+                <field name="loadCss" type="radio" default="1" label="MOD_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS" description="MOD_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="dynamicLocale" type="radio" default="0" label="MOD_ITPSHARE_ITPSHARE_AUTO_LANGUAGE" description="MOD_ITPSHARE_ITPSHARE_AUTO_LANGUAGE_DESC" class="btn-group">
+                     <option value="0">JNO</option>
+                     <option value="1">JYES</option>
+                </field>
+                
+			</fieldset>
+
+            <fieldset name="twitter_section" label="MOD_ITPSHARE_TWITTER_SETTINGS">
+                <field name="twitterButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="twitterName" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_NAME" description="MOD_ITPSHARE_TWITTER_NAME_DESC" />
+                <field name="twitterRecommend" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_RECOMMEND" description="MOD_ITPSHARE_TWITTER_RECOMMEND_DESC" />
                 <field name="twitterHashtag" type="text" default="" size="80" label="MOD_ITPSHARE_TWITTER_HASHTAGS" description="MOD_ITPSHARE_TWITTER_HASHTAGS_DESC" />
                 <field name="twitterSize" type="list" default="small" label="MOD_ITPSHARE_TWITTER_SIZE" description="MOD_ITPSHARE_TWITTER_SIZE_DESC" >
                    <option value="small">MOD_ITPSHARE_SMALL</option>
                    <option value="large">MOD_ITPSHARE_LARGE</option>
                 </field>
-				<field name="twitterCounter" type="list" default="horizontal" label="MOD_ITPSHARE_TWITTER_COUNTER" description="MOD_ITPSHARE_TWITTER_COUNTER_DESC" >
-				   <option value="none">JHIDE</option>
-				   <option value="vertical">MOD_ITPSHARE_VERTICAL</option>
-				   <option value="horizontal">MOD_ITPSHARE_HORIZONTAL</option>
-				</field>
-				<field name="twitterLanguage" type="list" default="en" label="MOD_ITPSHARE_TWITTER_LANGUAGE" description="MOD_ITPSHARE_TWITTER_LANGUAGE_DESC" >
-				   <option value="ar">MOD_ITPSHARE_ARABIC</option>
+                <field name="twitterCounter" type="list" default="horizontal" label="MOD_ITPSHARE_TWITTER_COUNTER" description="MOD_ITPSHARE_TWITTER_COUNTER_DESC" >
+                   <option value="none">JHIDE</option>
+                   <option value="vertical">MOD_ITPSHARE_VERTICAL</option>
+                   <option value="horizontal">MOD_ITPSHARE_HORIZONTAL</option>
+                </field>
+                <field name="twitterLanguage" type="list" default="en" label="MOD_ITPSHARE_TWITTER_LANGUAGE" description="MOD_ITPSHARE_TWITTER_LANGUAGE_DESC" >
+                   <option value="ar">MOD_ITPSHARE_ARABIC</option>
                    <option value="eu">MOD_ITPSHARE_BASQUE</option>
                    <option value="ca">MOD_ITPSHARE_CATALAN</option>
                    <option value="zh-cn">MOD_ITPSHARE_CHINESE_ZH</option>
@@ -80,12 +92,19 @@
                    <option value="th">MOD_ITPSHARE_THAI</option>
                    <option value="tr">MOD_ITPSHARE_TURKISH</option>
                    <option value="jp">MOD_ITPSHARE_JAPANESE</option>
-				</field>
-				
-				<field name="spacer2" type="spacer" class="text" label="MOD_ITPSHARE_TUMBLR_SETTINGS" />
-                <field name="tumblrButton" type="radio" default="0" label="MOD_ITPSHARE_TUMBLR_BUTTON" description="MOD_ITPSHARE_TUMBLR_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+                </field>
+                
+                <field name="load_twitter_library" type="radio" default="1" label="MOD_ITPSHARE_TWITTER_LOAD_LIBRARY" description="MOD_ITPSHARE_TWITTER_LOAD_LIBRARY_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+            </fieldset>
+            
+            <fieldset name="thumblr_section" label="MOD_ITPSHARE_TUMBLR_SETTINGS">
+                <field name="tumblrButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="tumblrType" type="list" default="small" label="MOD_ITPSHARE_TUMBLR_TYPE" description="MOD_ITPSHARE_TUMBLR_TYPE_DESC" >
                    <option value="0">MOD_ITPSHARE_BUTTON_1</option>
@@ -97,44 +116,49 @@
                    <option value="6">MOD_ITPSHARE_BUTTON_7</option>
                    <option value="7">MOD_ITPSHARE_BUTTON_8</option>
                 </field>
-				
-				<field name="spacer3" type="spacer" class="text" label="MOD_ITPSHARE_FACEBOOK_SETTINGS" />
-				<field name="facebookLikeButton" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_BUTTON" description="MOD_ITPSHARE_FACEBOOK_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-				   <option value="1">JSHOW</option>
-				</field>
-				<field name="facebookLikeRenderer" type="list" default="2" label="MOD_ITPSHARE_FACEBOOK_RENDERER" description="MOD_ITPSHARE_FACEBOOK_RENDERER_DESC" >
-				   <option value="0">iframe</option>
-				   <option value="1">XFBML</option>
-				   <option value="2">HTML5</option>
-				</field>
-		        <field name="facebookLikeAction" type="list" default="like" label="MOD_ITPSHARE_FACEBOOK_TEXT" description="MOD_ITPSHARE_FACEBOOK_TEXT_DESC" >
-		           <option value="like">MOD_ITPSHARE_LIKE</option>
-		           <option value="recommend">MOD_ITPSHARE_RECOMMEND</option>
-		        </field>
-				<field name="facebookLikeType" type="list" default="button_count" label="MOD_ITPSHARE_FACEBOOK_TYPE" description="MOD_ITPSHARE_FACEBOOK_TYPE_DESC" >
-					<option value="standard">MOD_ITPSHARE_STANDARD</option>
+                <field name="loadTumblrJsLib" type="radio" default="1" label="MOD_ITPSHARE_TUMBLR_LOAD_JS" description="MOD_ITPSHARE_TUMBLR_LOAD_JS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="facebook_like_section" label="MOD_ITPSHARE_FACEBOOK_SETTINGS">
+                <field name="facebookLikeButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="facebookLikeRenderer" type="list" default="2" label="MOD_ITPSHARE_FACEBOOK_RENDERER" description="MOD_ITPSHARE_FACEBOOK_RENDERER_DESC" >
+                   <option value="0">iframe</option>
+                   <option value="1">XFBML</option>
+                   <option value="2">HTML5</option>
+                </field>
+                <field name="facebookLikeAction" type="list" default="like" label="MOD_ITPSHARE_FACEBOOK_TEXT" description="MOD_ITPSHARE_FACEBOOK_TEXT_DESC" >
+                   <option value="like">MOD_ITPSHARE_LIKE</option>
+                   <option value="recommend">MOD_ITPSHARE_RECOMMEND</option>
+                </field>
+                <field name="facebookLikeType" type="list" default="button_count" label="MOD_ITPSHARE_FACEBOOK_TYPE" description="MOD_ITPSHARE_FACEBOOK_TYPE_DESC" >
+                    <option value="standard">MOD_ITPSHARE_STANDARD</option>
                     <option value="box_count">MOD_ITPSHARE_BOX_COUNT</option>
                     <option value="button_count">MOD_ITPSHARE_BUTTON_COUNT</option>
-				</field>
-				<field name="facebookLikeFaces" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_FACES" description="MOD_ITPSHARE_FACEBOOK_FACES_DESC" >
-				   <option value="0">JHIDE</option>
-				   <option value="1">JSHOW</option>
-				</field>
-				<field name="facebookLikeColor" type="list" default="light" label="MOD_ITPSHARE_FACEBOOK_COLOR" description="MOD_ITPSHARE_FACEBOOK_COLOR_DESC" >
-				   <option value="light">MOD_ITPSHARE_LIGHT</option>
-				   <option value="dark">MOD_ITPSHARE_DARK</option>
-				</field>
-				<field name="facebookLikeFont" type="list" default="" label="MOD_ITPSHARE_FACEBOOK_FONT" description="MOD_ITPSHARE_FACEBOOK_FONT_DESC" >
-		           <option value=""></option>
-		            <option value="arial">arial</option>
-		            <option value="lucida grande">lucida grande</option>
-		            <option value="segoe ui">segoe ui</option>
-		            <option value="tahoma">tahoma</option>
-		            <option value="trebuchet ms">trebuchet ms</option>
-		            <option value="verdana">verdana</option>
-		        </field>
-				<field name="facebookLikeWidth" type="text" default="90" label="MOD_ITPSHARE_FACEBOOK_WIDTH" description="MOD_ITPSHARE_FACEBOOK_WIDTH_DESC" />
+                </field>
+                <field name="facebookLikeFaces" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_FACES" description="MOD_ITPSHARE_FACEBOOK_FACES_DESC" class="btn-group">
+                   <option value="0">JHIDE</option>
+                   <option value="1">JSHOW</option>
+                </field>
+                <field name="facebookLikeColor" type="list" default="light" label="MOD_ITPSHARE_FACEBOOK_COLOR" description="MOD_ITPSHARE_FACEBOOK_COLOR_DESC" >
+                   <option value="light">MOD_ITPSHARE_LIGHT</option>
+                   <option value="dark">MOD_ITPSHARE_DARK</option>
+                </field>
+                <field name="facebookLikeFont" type="list" default="" label="MOD_ITPSHARE_FACEBOOK_FONT" description="MOD_ITPSHARE_FACEBOOK_FONT_DESC" >
+                   <option value=""></option>
+                    <option value="arial">arial</option>
+                    <option value="lucida grande">lucida grande</option>
+                    <option value="segoe ui">segoe ui</option>
+                    <option value="tahoma">tahoma</option>
+                    <option value="trebuchet ms">trebuchet ms</option>
+                    <option value="verdana">verdana</option>
+                </field>
+                <field name="facebookLikeWidth" type="text" default="90" label="MOD_ITPSHARE_FACEBOOK_WIDTH" description="MOD_ITPSHARE_FACEBOOK_WIDTH_DESC" />
                 <field name="fbLocale" type="list" default="en_US" label="MOD_ITPSHARE_LANGUAGE" description="MOD_ITPSHARE_LANGUAGE_DESC">
                     <option value="af_ZA">MOD_ITPSHARE_AFRIKAANS</option>
                     <option value="ar_AR">MOD_ITPSHARE_ARABIC</option>
@@ -244,35 +268,63 @@
                     <option value="yi_DE">MOD_ITPSHARE_YIDDISH</option>
                     <option value="zu_ZA">MOD_ITPSHARE_ZULU</option>
                 </field>
-				<field name="spacer4" type="spacer" class="text" label="MOD_ITPSHARE_STUMBLEUPON_SETTINGS" />
-				<field name="stumbleButton" type="radio" default="0" label="MOD_ITPSHARE_STUMBLEUPON_BUTTON" description="MOD_ITPSHARE_STUMBLEUPON_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-				</field>  
-				<field name="stumbleType" type="list" default="1" label="MOD_ITPSHARE_STUMBLEUPON_TYPE" description="MOD_ITPSHARE_STUMBLEUPON_TYPE_DESC" >
-				   <option value="1">MOD_ITPSHARE_BUTTON_1</option>
+                
+                <field name="facebookKidDirectedSite" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_KID_DIRECTED_SITE" description="MOD_ITPSHARE_FACEBOOK_KID_DIRECTED_SITE_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                
+                <field name="facebookLikeAppId" type="text" default="" label="MOD_ITPSHARE_FACEBOOK_APP_ID" description="MOD_ITPSHARE_FACEBOOK_APP_ID_DESC" />
+                <field name="facebookLikeSend" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="facebookRootDiv" type="radio" default="1" label="MOD_ITPSHARE_FACEBOOK_ROOT" description="MOD_ITPSHARE_FACEBOOK_ROOT_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                 </field>
+                <field name="facebookLoadJsLib" type="radio" default="1" label="MOD_ITPSHARE_LOAD_JS_LIB" description="MOD_ITPSHARE_LOAD_JS_LIB_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+            </fieldset>
+            
+            <fieldset name="stumbleupon_section" label="MOD_ITPSHARE_STUMBLEUPON_SETTINGS">
+                <field name="stumbleButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>  
+                <field name="stumbleType" type="list" default="1" label="MOD_ITPSHARE_STUMBLEUPON_TYPE" description="MOD_ITPSHARE_STUMBLEUPON_TYPE_DESC" >
+                   <option value="1">MOD_ITPSHARE_BUTTON_1</option>
                    <option value="2">MOD_ITPSHARE_BUTTON_2</option>
                    <option value="3">MOD_ITPSHARE_BUTTON_3</option>
                    <option value="4">MOD_ITPSHARE_BUTTON_4</option>
                    <option value="5">MOD_ITPSHARE_BUTTON_5</option>
                    <option value="6">MOD_ITPSHARE_BUTTON_6</option>
-				</field>  
-				
-				<field name="spacer5" type="spacer" class="text" label="MOD_ITPSHARE_LINKEDIN_SETTINGS" />
-				<field name="linkedInButton" type="radio" default="0" label="MOD_ITPSHARE_LINKEDIN_BUTTON" description="MOD_ITPSHARE_LINKEDIN_BUTTON_DESC" >
-				   <option value="0">JHIDE</option>
-				   <option value="1">JSHOW</option>
-				</field>
-				<field name="linkedInType" type="list" default="right" label="MOD_ITPSHARE_LINKEDIN_TYPE" description="MOD_ITPSHARE_LINKEDIN_TYPE_DESC" >
-				   <option value="none">MOD_ITPSHARE_COUNTER_NONE</option>
+                </field>  
+            </fieldset>
+            
+            <fieldset name="linkedin_section" label="MOD_ITPSHARE_LINKEDIN_SETTINGS">
+                <field name="linkedInButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="linkedInType" type="list" default="right" label="MOD_ITPSHARE_LINKEDIN_TYPE" description="MOD_ITPSHARE_LINKEDIN_TYPE_DESC" >
+                   <option value="none">MOD_ITPSHARE_COUNTER_NONE</option>
                    <option value="top">MOD_ITPSHARE_COUNTER_TOP</option>
                    <option value="right">MOD_ITPSHARE_COUNTER_RIGHT</option>
-				</field>  
-				
-				<field name="spacer7" type="spacer" class="text" label="MOD_ITPSHARE_REDDIT_SETTINGS" />
-                <field name="redditButton" type="radio" default="0" label="MOD_ITPSHARE_REDDIT_BUTTON" description="MOD_ITPSHARE_REDDIT_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+                </field>  
+                <field name="load_linkedin_library" type="radio" default="1" label="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="reddit_section" label="MOD_ITPSHARE_REDDIT_SETTINGS">
+                <field name="redditButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="redditType" type="list" default="0" label="MOD_ITPSHARE_REDDIT_STYLE" description="MOD_ITPSHARE_REDDIT_STYLE_DESC" >
                    <option value="0">MOD_ITPSHARE_BUTTON_1</option>
@@ -301,15 +353,16 @@
                 </field>
                 <field name="redditBgColor" type="text" default="" label="MOD_ITPSHARE_REDDIT_BG_COLOR" description="MOD_ITPSHARE_REDDIT_BG_COLOR_DESC" />
                 <field name="redditBorderColor" type="text" default="" label="MOD_ITPSHARE_REDDIT_BORDER_COLOR" description="MOD_ITPSHARE_REDDIT_BORDER_COLOR_DESC" />
-                <field name="redditNewTab" type="radio" default="1" label="MOD_ITPSHARE_REDDIT_NEW_TAB" description="MOD_ITPSHARE_REDDIT_NEW_TAB_DESC" >
+                <field name="redditNewTab" type="radio" default="1" label="MOD_ITPSHARE_REDDIT_NEW_TAB" description="MOD_ITPSHARE_REDDIT_NEW_TAB_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
-				
-				<field name="spacer8" type="spacer" class="text" label="MOD_ITPSHARE_GOOGLE_ONE_SETTINGS" />
-                <field name="plusButton" type="radio" default="0" label="MOD_ITPSHARE_GOOGLE_ONE_BUTTON" description="MOD_ITPSHARE_GOOGLE_ONE_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+            </fieldset>
+            
+            <fieldset name="google_one_section" label="MOD_ITPSHARE_GOOGLE_ONE_SETTINGS">
+                <field name="plusButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="plusRenderer" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_ONE_RENDERER" description="MOD_ITPSHARE_GOOGLE_ONE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
@@ -390,21 +443,37 @@
                     <option value="vi">MOD_ITPSHARE_VIETNAMESE</option>
                 </field>
                 
-                <field name="spacer9" type="spacer" class="text" label="MOD_ITPSHARE_PINTEREST_SETTINGS" />
-                <field name="pinterestButton" type="radio" default="0" label="MOD_ITPSHARE_PINTEREST_BUTTON" description="MOD_ITPSHARE_PINTEREST_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
-                </field>
-                <field name="pinterestType" type="list" default="horizontal" label="MOD_ITPSHARE_PINTEREST_TYPE" description="MOD_ITPSHARE_PINTEREST_TYPE_DESC" >
-                   <option value="none">MOD_ITPSHARE_NONE</option>
-                   <option value="horizontal">MOD_ITPSHARE_HORIZONTAL</option>
-                   <option value="vertical">MOD_ITPSHARE_VERTICAL</option>
+                <field name="loadGoogleJsLib" type="radio" default="1" label="MOD_ITPSHARE_GOOGLE_LOAD_JS" description="MOD_ITPSHARE_GOOGLE_LOAD_JS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
                 </field>
                 
-                <field name="spacer10" type="spacer" class="text" label="MOD_ITPSHARE_BUFFER_SETTINGS" />
-                <field name="bufferButton" type="radio" default="0" label="MOD_ITPSHARE_BUFFER_BUTTON" description="MOD_ITPSHARE_BUFFER_BUTTON_DESC" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+            </fieldset>
+            
+            <fieldset name="pinterest_section" label="MOD_ITPSHARE_PINTEREST_SETTINGS">
+                <field name="pinterestButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
+                </field>
+                <field name="pinterestImages" type="list" default="one" label="MOD_ITPSHARE_PINTEREST_IMAGES" description="MOD_ITPSHARE_PINTEREST_IMAGES_DESC" >
+                   <option value="one">MOD_ITPSHARE_ONE_IMAGE</option>
+                   <option value="any">MOD_ITPSHARE_ANY_IMAGE</option>
+                </field>
+                <field name="pinterestType" type="list" default="none" label="MOD_ITPSHARE_PINTEREST_TYPE" description="MOD_ITPSHARE_PINTEREST_TYPE_DESC" >
+                   <option value="none">MOD_ITPSHARE_NOT_SHOWN</option>
+                   <option value="above">MOD_ITPSHARE_ABOVE_BUTTON</option>
+                   <option value="beside">MOD_ITPSHARE_BESIDE_BUTTON</option>
+                </field>
+                <field name="loadPinterestJsLib" type="radio" default="1" label="MOD_ITPSHARE_PINTEREST_JS" description="MOD_ITPSHARE_PINTEREST_LOAD_JS_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="buffer_section" label="MOD_ITPSHARE_BUFFER_SETTINGS">
+                <field name="bufferButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="bufferType" type="list" default="horizontal" label="MOD_ITPSHARE_BUFFER_TYPE" description="MOD_ITPSHARE_BUFFER_TYPE_DESC" >
                    <option value="none">MOD_ITPSHARE_NONE</option>
@@ -412,11 +481,12 @@
                    <option value="vertical">MOD_ITPSHARE_VERTICAL</option>
                 </field>
                 <field name="bufferTwitterName" type="text" default="" size="80" label="MOD_ITPSHARE_BUFFER_USERNAME" description="MOD_ITPSHARE_BUFFER_USERNAME_DESC" />
-                            
-                <field name="spacer11" type="spacer" class="text" label="MOD_ITPSHARE_GOOGLE_SHARE_SETTINGS" />
-                <field name="gsButton" type="radio" default="0" label="MOD_ITPSHARE_GOOGLE_SHARE_BUTTON" description="MOD_ITPSHARE_GOOGLE_SHARE_BUTTON" >
-                   <option value="0">JHIDE</option>
-                   <option value="1">JSHOW</option>
+            </fieldset>
+            
+            <fieldset name="google_share_section" label="MOD_ITPSHARE_GOOGLE_SHARE_SETTINGS">
+                <field name="gsButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
+                   <option value="0">JNO</option>
+                   <option value="1">JYES</option>
                 </field>
                 <field name="gsRenderer" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_SHARE_RENDERER" description="MOD_ITPSHARE_GOOGLE_SHARE_RENDERER_DESC" >
                    <option value="0">HTML5</option>
@@ -496,8 +566,8 @@
                     <option value="uk">MOD_ITPSHARE_UKRAINIAN</option>
                     <option value="vi">MOD_ITPSHARE_VIETNAMESE</option>
                 </field>
-			</fieldset>
-
+            </fieldset>
+            
             <fieldset name="short_url_settings" label="MOD_ITPSHARE_SHORTENER_SETTINGS">
                 <field name="shortener_service" type="list" default="" label="MOD_ITPSHARE_SHORTENER_SERVICE" description="MOD_ITPSHARE_SHORTENER_SERVICE_DESC" >
                    <option value="">MOD_ITPSHARE_NONE</option>
@@ -512,77 +582,22 @@
             </fieldset>
             
             <fieldset name="additional_code" label="MOD_ITPSHARE_ADDITIONAL_BUTTONS">
-                <field name="ebuttons1" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons2" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons3" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons4" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-                <field name="ebuttons5" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" cols="50" rows="10" filter="raw" />
-            </fieldset>
-            
-            <fieldset name="implementation_settings" label="MOD_ITPSOCIALSUBSCRIBE_IMPLEMENTATION_OPTIONS">
-                <field name="spacer12" type="spacer" class="text" label="MOD_ITPSHARE_FACEBOOK_ADVANCED_SETTINGS" />
-                <field name="facebookLikeAppId" type="text" default="" label="MOD_ITPSHARE_FACEBOOK_APP_ID" description="MOD_ITPSHARE_FACEBOOK_APP_ID_DESC" />
-                <field name="facebookLikeSend" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" >
-                   <option value="0">JNO</option>
-                   <option value="1">JYES</option>
-                </field>
-                <field name="facebookRootDiv" type="radio" default="1" label="MOD_ITPSHARE_FACEBOOK_ROOT" description="MOD_ITPSHARE_FACEBOOK_ROOT_DESC" >
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                 </field>
-                <field name="facebookLoadJsLib" type="radio" default="1" label="MOD_ITPSHARE_LOAD_JS_LIB" description="MOD_ITPSHARE_LOAD_JS_LIB_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer13" type="spacer" class="text" label="MOD_ITPSHARE_TUMBLR_ADVANCED_SETTINGS" />
-                <field name="loadTumblrJsLib" type="radio" default="1" label="MOD_ITPSHARE_TUMBLR_LOAD_JS" description="MOD_ITPSHARE_TUMBLR_LOAD_JS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer14" type="spacer" class="text" label="MOD_ITPSHARE_TWITTER_ADVANCED_SETTINGS" />
-                <field name="load_twitter_library" type="radio" default="1" label="MOD_ITPSHARE_TWITTER_LOAD_LIBRARY" description="MOD_ITPSHARE_TWITTER_LOAD_LIBRARY_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer15" type="spacer" class="text" label="MOD_ITPSHARE_LINKEDIN_ADVANCED_SETTINGS" />
-                <field name="load_linkedin_library" type="radio" default="1" label="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer16" type="spacer" class="text" label="MOD_ITPSHARE_GOOGLE_ADVANCED_SETTINGS" />
-                <field name="loadGoogleJsLib" type="radio" default="1" label="MOD_ITPSHARE_GOOGLE_LOAD_JS" description="MOD_ITPSHARE_GOOGLE_LOAD_JS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer17" type="spacer" class="text" label="MOD_ITPSHARE_PINTEREST_ADVANCED_SETTINGS" />
-                <field name="loadPinterestJsLib" type="radio" default="1" label="MOD_ITPSHARE_PINTEREST_JS" description="MOD_ITPSHARE_PINTEREST_LOAD_JS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                
-                <field name="spacer18" type="spacer" class="text" label="MOD_ITPSHARE_ITPSHARE_ADVANCED_SETTINGS" />
-                <field name="loadCss" type="radio" default="1" label="MOD_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS" description="MOD_ITPSHARE_ITPSHARE_LOAD_STYLE_CSS_DESC">
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                <field name="dynamicLocale" type="radio" default="0" label="MOD_ITPSHARE_ITPSHARE_AUTO_LANGUAGE" description="MOD_ITPSHARE_ITPSHARE_AUTO_LANGUAGE_DESC">
-                     <option value="0">JNO</option>
-                     <option value="1">JYES</option>
-                </field>
-                
+                <field name="ebuttons1" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons2" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons3" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons4" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
+                <field name="ebuttons5" type="textarea" default="" label="MOD_ITPSHARE_CUSTOM_BUTTON_CODE" description="MOD_ITPSHARE_CUSTOM_BUTTON_CODE_DESC" class="span6" cols="50" rows="10" filter="raw" />
             </fieldset>
             
 			<fieldset name="advanced">
-				<field name="moduleclass_sfx" type="text"
-					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 
 				<field
+                    name="moduleclass_sfx"
+                    type="text"
+                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                    description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+                    
+                <field
                     name="cache"
                     type="list"
                     default="1"
