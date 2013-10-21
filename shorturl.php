@@ -2,7 +2,7 @@
 /**
  * @package      ITPrism Plugins
  * @subpackage   ITPShare
- * @copyright    Copyright (C) 2010 Todor Iliev <todor@itprism.com>. All rights reserved.
+ * @copyright    Copyright (C) 2013 Todor Iliev <todor@itprism.com>. All rights reserved.
  * @license      http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * ITPShare is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
