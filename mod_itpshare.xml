@@ -2,12 +2,12 @@
 <extension type="module" version="3.1" client="site" method="upgrade">
 	<name>MOD_ITPSHARE</name>
 	<author>Todor Iliev</author>
-	<copyright>Copyright (C) 2013 Todor Iliev ( ITPrism.com )</copyright>
+	<copyright>Copyright (C) 2014 Todor Iliev ( ITPrism.com )</copyright>
 	<license>http://www.gnu.org/copyleft/gpl.html</license>
 	<authorEmail>todor@itprism.com</authorEmail>
 	<authorUrl>http://itprism.com</authorUrl>
-	<version>2.6</version>
-    <creationDate>21 October, 2013</creationDate>
+	<version>2.7</version>
+    <creationDate>05 May, 2014</creationDate>
 	<description><![CDATA[
     <p><a href="http://itprism.com/free-joomla-extensions/social-marketing-seo/socialmedia-multi-share" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, LinkedIn, StumbleUpon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p><a href='http://itprism.com/help/30-itpshare-documentation-faq' target='_blank'>Read documentation</a> that will help you to setup the extensions.</p>
@@ -146,6 +146,7 @@
                     <option value="standard">MOD_ITPSHARE_STANDARD</option>
                     <option value="box_count">MOD_ITPSHARE_BOX_COUNT</option>
                     <option value="button_count">MOD_ITPSHARE_BUTTON_COUNT</option>
+                    <option value="button">MOD_ITPSHARE_BUTTON</option>
                 </field>
                 <field name="facebookLikeFaces" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_FACES" description="MOD_ITPSHARE_FACEBOOK_FACES_DESC" class="btn-group">
                    <option value="0">JHIDE</option>
@@ -156,7 +157,7 @@
                    <option value="dark">MOD_ITPSHARE_DARK</option>
                 </field>
                 <field name="facebookLikeFont" type="list" default="" label="MOD_ITPSHARE_FACEBOOK_FONT" description="MOD_ITPSHARE_FACEBOOK_FONT_DESC" >
-                   <option value=""></option>
+                    <option value="">MOD_ITPSHARE_DEFAULT</option>
                     <option value="arial">arial</option>
                     <option value="lucida grande">lucida grande</option>
                     <option value="segoe ui">segoe ui</option>
@@ -281,7 +282,7 @@
                 </field>
                 
                 <field name="facebookLikeAppId" type="text" default="" label="MOD_ITPSHARE_FACEBOOK_APP_ID" description="MOD_ITPSHARE_FACEBOOK_APP_ID_DESC" />
-                <field name="facebookLikeSend" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SEND_BUTTON" class="btn-group">
+                <field name="facebookLikeShare" type="radio" default="0" label="MOD_ITPSHARE_FACEBOOK_SHARE_BUTTON" description="MOD_ITPSHARE_FACEBOOK_SHARE_BUTTON" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
@@ -321,6 +322,27 @@
                    <option value="top">MOD_ITPSHARE_COUNTER_TOP</option>
                    <option value="right">MOD_ITPSHARE_COUNTER_RIGHT</option>
                 </field>  
+                <field name="linkedInLocale" type="list" default="en_US" label="MOD_ITPSHARE_LANGUAGE" description="MOD_ITPSHARE_LANGUAGE_DESC">
+                    <option value="en_US">MOD_ITPSHARE_ENGLISH</option>
+                    <option value="es_LA">MOD_ITPSHARE_SPANISH</option>
+                    <option value="de_DE">MOD_ITPSHARE_GERMAN</option>
+                    <option value="fr_FR">MOD_ITPSHARE_FRENCH</option>
+                    <option value="ru_RU">MOD_ITPSHARE_RUSSIAN</option>
+                    <option value="it_IT">MOD_ITPSHARE_ITALIAN</option>
+                    <option value="pt_BR">MOD_ITPSHARE_PORTUGUESE</option>
+                    <option value="ro_RO">MOD_ITPSHARE_ROMANIAN</option>
+                    <option value="tr_TR">MOD_ITPSHARE_TURKISH</option>
+                    <option value="ja_JP">MOD_ITPSHARE_JAPANESE</option>
+                    <option value="id_ID">MOD_ITPSHARE_INDONESIAN</option>
+                    <option value="ms_MY">MOD_ITPSHARE_MALAY</option>
+                    <option value="ko_KR">MOD_ITPSHARE_KOREAN</option>
+                    <option value="sv_SE">MOD_ITPSHARE_SWEDISH</option>
+                    <option value="cs_CZ">MOD_ITPSHARE_CZECH</option>
+                    <option value="nl_NL">MOD_ITPSHARE_DUTCH</option>
+                    <option value="pl_PL">MOD_ITPSHARE_POLISH</option>
+                    <option value="no_NO">MOD_ITPSHARE_NORWEGIAN</option>
+                    <option value="da_DK">MOD_ITPSHARE_DANISH</option>
+                </field>
                 <field name="load_linkedin_library" type="radio" default="1" label="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY" description="MOD_ITPSHARE_LINKEDIN_LOAD_LIBRARY_DESC" class="btn-group">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>

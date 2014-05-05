@@ -1,10 +1,16 @@
 ITPShare Module for Joomla! 
 ==========================
-( Version v2.6 )
+( Version v2.7 )
 - - -
 
 Changelog
 ---------
+
+###v2.7
+* Replaced the option for "Send" button with an option for displaying "Share" button.
+* Added new button type "Button".
+* Added language option to LinkedIn button
+* Improved
 
 ###v2.6
 * Improved
