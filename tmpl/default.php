@@ -12,9 +12,9 @@ defined('_JEXEC') or die;
 <div class="itp-share-mod<?php echo $moduleclass_sfx;?>">
     <?php
     echo ItpShareHelper::getTwitter($params, $url, $title);
-    echo ItpShareHelper::getStumbpleUpon($params, $url);
+    echo ItpShareHelper::getStumbpleUpon($params);
     echo ItpShareHelper::getLinkedIn($params, $url);
-    echo ItpShareHelper::getTumblr($params, $url);
+    echo ItpShareHelper::getTumblr($params);
     echo ItpShareHelper::getBuffer($params, $url, $title);
     echo ItpShareHelper::getPinterest($params, $url, $title);
     echo ItpShareHelper::getReddit($params, $url, $title);

@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.1" client="site" method="upgrade">
+<extension type="module" version="3.5" client="site" method="upgrade">
 	<name>MOD_ITPSHARE</name>
 	<author>Todor Iliev</author>
-	<copyright>Copyright (C) 2014 Todor Iliev ( ITPrism.com )</copyright>
-	<license>http://www.gnu.org/copyleft/gpl.html</license>
+	<copyright>Copyright (C) 2016 Todor Iliev ( ITPrism.com )</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.en.html GNU/GPLv3</license>
 	<authorEmail>todor@itprism.com</authorEmail>
 	<authorUrl>http://itprism.com</authorUrl>
-	<version>2.7</version>
-    <creationDate>05 May, 2014</creationDate>
+	<version>2.8</version>
+    <creationDate>15 May, 2016</creationDate>
 	<description><![CDATA[
     <p><a href="http://itprism.com/free-joomla-extensions/social-marketing-seo/socialmedia-multi-share" target="_blank">ITPShare</a> is an extension that adds republish buttons, widgets or goodies on your site. There are social plugins of Twitter, Facebook, LinkedIn, StumbleUpon, Google Plus, Google Share, Thumblr, Pinterest, BufferApp,... It will help you to find more readers for your publications.</p>
     <p><a href='http://itprism.com/help/30-itpshare-documentation-faq' target='_blank'>Read documentation</a> that will help you to setup the extensions.</p>
-    <p>Invest in the extension improvement. You can <a href="http://itprism.com/sponsorship" target="_blank">sponsor the extension via SMS, PayPal or Bitcoin</a>.<p>
     <p><a href="http://itprism.com/" target="_blank">Subscribe for the newsletter</a> to receive <strong>gifts</strong>, <strong>discount codes</strong>, information about <strong>updates</strong> and information about <strong>new ITPrism extensions</strong>.</p>
     <p>Please, <a href="http://extensions.joomla.org/extensions/social-web/social-share/social-multi-share/15665" target="_blank">vote for the extension</a> on Joomla! Extensions Directory</p>
     ]]></description>
 	
 	<files>
 		<filename module="mod_itpshare">mod_itpshare.php</filename>
-		<filename>index.html</filename>
 		<filename>helper.php</filename>
 		<filename>shorturl.php</filename>
 		<filename>style.css</filename>
@@ -129,11 +127,6 @@
                 <field name="facebookLikeButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
-                </field>
-                <field name="facebookLikeRenderer" type="list" default="2" label="MOD_ITPSHARE_FACEBOOK_RENDERER" description="MOD_ITPSHARE_FACEBOOK_RENDERER_DESC" >
-                   <option value="0">iframe</option>
-                   <option value="1">XFBML</option>
-                   <option value="2">HTML5</option>
                 </field>
                 <field name="facebookLikeAction" type="list" default="like" label="MOD_ITPSHARE_FACEBOOK_TEXT" description="MOD_ITPSHARE_FACEBOOK_TEXT_DESC" >
                    <option value="like">MOD_ITPSHARE_LIKE</option>
@@ -389,10 +382,6 @@
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
                 </field>
-                <field name="plusRenderer" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_ONE_RENDERER" description="MOD_ITPSHARE_GOOGLE_ONE_RENDERER_DESC" >
-                   <option value="0">HTML5</option>
-                   <option value="1">MOD_ITPSHARE_STANDARD</option>
-                </field>
                 <field name="plusType" type="list" default="medium" label="MOD_ITPSHARE_GOOGLE_ONE_STYLE" description="MOD_ITPSHARE_GOOGLE_ONE_STYLE_DESC" >
                    <option value="small">MOD_ITPSHARE_SMALL_15</option>
                    <option value="standart">MOD_ITPSHARE_STANDARD_24</option>
@@ -489,6 +478,15 @@
                    <option value="above">MOD_ITPSHARE_ABOVE_BUTTON</option>
                    <option value="beside">MOD_ITPSHARE_BESIDE_BUTTON</option>
                 </field>
+                <field name="pinterestColor" type="list" default="gray" label="MOD_ITPSHARE_PINTEREST_COLOR" description="MOD_ITPSHARE_PINTEREST_COLOR_DESC" >
+                    <option value="gray">MOD_ITPSHARE_GRAY</option>
+                    <option value="red">MOD_ITPSHARE_RED</option>
+                    <option value="white">MOD_ITPSHARE_WHITE</option>
+                </field>
+                <field name="pinterestLarge" type="radio" default="0" label="MOD_ITPSHARE_LARGE" description="MOD_ITPSHARE_PINTEREST_LARGE_DESC" class="btn-group">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
                 <field name="loadPinterestJsLib" type="radio" default="1" label="MOD_ITPSHARE_PINTEREST_JS" description="MOD_ITPSHARE_PINTEREST_LOAD_JS_DESC" class="btn-group">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
@@ -512,10 +510,6 @@
                 <field name="gsButton" type="radio" default="0" label="MOD_ITPSHARE_DISPLAY_BUTTON" description="MOD_ITPSHARE_DISPLAY_BUTTON_DESC" class="btn-group">
                    <option value="0">JNO</option>
                    <option value="1">JYES</option>
-                </field>
-                <field name="gsRenderer" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_SHARE_RENDERER" description="MOD_ITPSHARE_GOOGLE_SHARE_RENDERER_DESC" >
-                   <option value="0">HTML5</option>
-                   <option value="1">MOD_ITPSHARE_STANDARD</option>
                 </field>
                 <field name="gsType" type="list" default="0" label="MOD_ITPSHARE_GOOGLE_SHARE_STYLE" description="MOD_ITPSHARE_GOOGLE_SHARE_STYLE_DESC" >
                    <option value="15">MOD_ITPSHARE_SMALL_15</option>

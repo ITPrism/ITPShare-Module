@@ -1,10 +1,15 @@
 ITPShare Module for Joomla! 
 ==========================
-( Version v2.7 )
+( Version v2.8 )
 - - -
 
 Changelog
 ---------
+
+###v2.8
+* Removed Facebook renderer. Now it generates HTML5 code.
+* Removed Google One and Share renderer. Now it generates HTML5 code.
+* Improved Pinterest. Added options Large and Colour.
 
 ###v2.7
 * Replaced the option for "Send" button with an option for displaying "Share" button.
