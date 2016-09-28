@@ -43,35 +43,32 @@ class ItpShareModuleShortUrl
 
     public function getUrl()
     {
-
         // Check for installed CURL library
         $installedLibraries = get_loaded_extensions();
-        if (!in_array('curl', $installedLibraries)) {
-            throw new Exception(JText::_("MOD_ITPSHARE_ERROR_CURL_MISSING"));
+        if (!in_array('curl', $installedLibraries, true)) {
+            throw new Exception(JText::_('MOD_ITPSHARE_ERROR_CURL_MISSING'));
         }
 
         switch ($this->service) {
-
-            case "jmp":
-                $this->getBitlyURL("j.mp");
+            case 'jmp':
+                $this->getBitlyURL('j.mp');
                 break;
 
-            case "bitlycom":
-                $this->getBitlyURL("bitly.com");
+            case 'bitlycom':
+                $this->getBitlyURL('bitly.com');
                 break;
 
-            case "tinycc":
+            case 'tinycc':
                 $this->getTinyURL();
                 break;
 
-            case "google":
+            case 'google':
                 $this->getGoogleURL();
                 break;
 
             default: // bit.ly
-                $this->getBitlyURL("bit.ly");
+                $this->getBitlyURL('bit.ly');
                 break;
-
         }
 
         return $this->shortUrl;
@@ -84,10 +81,9 @@ class ItpShareModuleShortUrl
      *
      * @throws Exception
      */
-    protected function getBitlyURL($domain = "bit.ly")
+    protected function getBitlyURL($domain = 'bit.ly')
     {
-
-        $url = "http://api.bitly.com/v3/shorten?login=" . $this->login . "&apiKey=" . $this->apiKey . "&longUrl=" . rawurldecode(html_entity_decode($this->url, ENT_COMPAT, 'UTF-8')) . "&format=json&domain=" . $domain;
+        $url = 'http://api.bitly.com/v3/shorten?login=' . $this->login . '&apiKey=' . $this->apiKey . '&longUrl=' . rawurldecode(html_entity_decode($this->url, ENT_COMPAT, 'UTF-8')) . '&format=json&domain=' . $domain;
 
         $curlObj = curl_init();
         curl_setopt($curlObj, CURLOPT_URL, $url);
@@ -104,15 +100,14 @@ class ItpShareModuleShortUrl
             $json = json_decode($response);
 
             if ($json->status_code != 200) {
-                $errorMessage = "[Bitly service] Message: " . $json->status_txt;
+                $errorMessage = '[Bitly service] Message: ' . $json->status_txt;
                 throw new Exception($errorMessage);
             } else {
                 $this->shortUrl = $json->data->url;
             }
         } else {
-            throw new Exception(JText::_("MOD_ITPSHARE_ERROR_UNKNOWN_ERROR"));
+            throw new Exception(JText::_('MOD_ITPSHARE_ERROR_UNKNOWN_ERROR'));
         }
-
     }
 
     /**
@@ -122,7 +117,7 @@ class ItpShareModuleShortUrl
     protected function getTinyURL()
     {
 
-        $url = "http://tiny.cc/?c=rest_api&m=shorten&version=2.0.3&format=json&shortUrl=&longUrl=" . rawurldecode(html_entity_decode($this->url, ENT_COMPAT, 'UTF-8')) . "&login=" . $this->login . "&apiKey=" . $this->apiKey;
+        $url = 'http://tiny.cc/?c=rest_api&m=shorten&version=2.0.3&format=json&shortUrl=&longUrl=' . rawurldecode(html_entity_decode($this->url, ENT_COMPAT, 'UTF-8')) . '&login=' . $this->login . '&apiKey=' . $this->apiKey;
 
         $curlObj = curl_init();
         curl_setopt($curlObj, CURLOPT_URL, $url);
@@ -139,25 +134,23 @@ class ItpShareModuleShortUrl
             $json = json_decode($response);
 
             if (!empty($json->errorCode)) {
-                $errorMessage = "[TinyCC service] Message: " . $json->errorMessage;
+                $errorMessage = '[TinyCC service] Message: ' . $json->errorMessage;
                 throw new Exception($errorMessage);
             } else {
                 $this->shortUrl = $json->results->short_url;
             }
         } else {
-            throw new Exception(JText::_("MOD_ITPSHARE_ERROR_UNKNOWN_ERROR"));
+            throw new Exception(JText::_('MOD_ITPSHARE_ERROR_UNKNOWN_ERROR'));
         }
-
     }
 
 
     /**
-     * Get a shor url from Goo.gl
+     * Get a short url from Goo.gl
      *
      */
     protected function getGoogleURL()
     {
-
         $postData = array(
             'longUrl' => rawurldecode(html_entity_decode($this->url, ENT_COMPAT, 'UTF-8')),
             'key'     => $this->apiKey
@@ -183,14 +176,13 @@ class ItpShareModuleShortUrl
             $json = json_decode($response);
 
             if (!empty($json->error)) {
-                $errorMessage = "[Goo.gl service] Message: " . $json->error->message . "; Location: " . $json->error->errors[0]->location;
+                $errorMessage = '[Goo.gl service] Message: ' . $json->error->message . '; Location: ' . $json->error->errors[0]->location;
                 throw new Exception($errorMessage);
             } else {
                 $this->shortUrl = $json->id;
             }
         } else {
-            throw new Exception(JText::_("MOD_ITPSHARE_ERROR_UNKNOWN_ERROR"));
+            throw new Exception(JText::_('MOD_ITPSHARE_ERROR_UNKNOWN_ERROR'));
         }
-
     }
 }

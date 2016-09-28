@@ -22,7 +22,7 @@ if ($params->get('loadCss')) {
 }
 
 // URL
-$url = JURI::getInstance()->toString();
+$url = JUri::getInstance()->toString();
 
 // Filter the URL
 $filter = JFilterInput::getInstance();

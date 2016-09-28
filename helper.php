@@ -69,7 +69,7 @@ class ItpShareHelper
      */
     public static function getExtraButtons($params, $url, $title)
     {
-        $html = "";
+        $html = '';
         // Extra buttons
         for ($i = 1; $i < 6; $i++) {
             $btnName     = 'ebuttons' . $i;
@@ -89,11 +89,13 @@ class ItpShareHelper
      * @param string    $url
      * @param string    $title
      *
+     * @throws \InvalidArgumentException
+     *
      * @return string
      */
     public static function getTwitter($params, $url, $title)
     {
-        $html = "";
+        $html = '';
         if ($params->get('twitterButton')) {
             $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
 
@@ -125,6 +127,7 @@ class ItpShareHelper
      * @param Registry $params
      * @param string $url
      *
+     * @throws \InvalidArgumentException
      * @return string
      */
     public static function getGooglePlusOne($params, $url)
@@ -163,12 +166,13 @@ class ItpShareHelper
         }
 
         return $html;
-        
     }
 
     /**
      * @param Registry $params
      * @param string $url
+     *
+     * @throws \InvalidArgumentException
      *
      * @return string
      */
@@ -206,7 +210,7 @@ class ItpShareHelper
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/' . $locale . '/sdk.js#xfbml=1&version=v2.6' . $appId . '";
+  js.src = "//connect.facebook.net/' . $locale . '/sdk.js#xfbml=1&version=v2.7' . $appId . '";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, \'script\', \'facebook-jssdk\'));</script>';
             }
@@ -706,6 +710,8 @@ class ItpShareHelper
     /**
      * @param Registry $params
      * @param string    $url
+     *
+     * @throws \InvalidArgumentException
      *
      * @return string
      */
